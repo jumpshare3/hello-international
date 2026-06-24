@@ -1,0 +1,22 @@
+# === 有償テーマ SWELL 本体（再配布NG・Git管理外）===
+/wp-content/themes/swell/
+
+# === WordPress コア・ランタイム ===
+/wp-content/uploads/
+/wp-content/upgrade/
+/wp-content/cache/
+wp-config.php
+
+# === ローカル/Docker ===
+.env
+db_data/
+*.sql
+*.sql.gz
+
+# === OS / エディタ ===
+.DS_Store
+Thumbs.db
+*.log
+.idea/
+.vscode/
+*.code-workspace

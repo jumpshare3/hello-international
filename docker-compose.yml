@@ -1,0 +1,53 @@
+# magazine.hello-internationalschool.com ローカル開発環境
+# 起動: docker compose up -d  →  http://localhost:8080
+services:
+  db:
+    image: mysql:8.0
+    container_name: hello-intl-db
+    restart: unless-stopped
+    environment:
+      MYSQL_DATABASE: wordpress
+      MYSQL_USER: wordpress
+      MYSQL_PASSWORD: wordpress
+      MYSQL_ROOT_PASSWORD: rootpass
+    volumes:
+      - db_data:/var/lib/mysql
+
+  wordpress:
+    image: wordpress:php8.3-apache
+    container_name: hello-intl-wp
+    restart: unless-stopped
+    depends_on:
+      - db
+    ports:
+      - "8080:80"
+    environment:
+      WORDPRESS_DB_HOST: db:3306
+      WORDPRESS_DB_USER: wordpress
+      WORDPRESS_DB_PASSWORD: wordpress
+      WORDPRESS_DB_NAME: wordpress
+      WORDPRESS_DEBUG: 1
+    volumes:
+      # WordPressコア本体は名前付きボリュームに保持（リポジトリ管理外）
+      - wp_core:/var/www/html
+      # 開発対象のテーマだけをバインドマウント（ホスト側で編集→即反映）
+      - ./wp-content/themes/swell:/var/www/html/wp-content/themes/swell
+      - ./wp-content/themes/swell_child:/var/www/html/wp-content/themes/swell_child
+
+  # 任意: ブラウザからDBを確認したいとき http://localhost:8081
+  phpmyadmin:
+    image: phpmyadmin:latest
+    container_name: hello-intl-pma
+    restart: unless-stopped
+    depends_on:
+      - db
+    ports:
+      - "8081:80"
+    environment:
+      PMA_HOST: db
+      PMA_USER: wordpress
+      PMA_PASSWORD: wordpress
+
+volumes:
+  db_data:
+  wp_core:
