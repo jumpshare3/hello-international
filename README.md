@@ -3,7 +3,7 @@
 magazine.hello-internationalschool.com の WordPress テーマ開発リポジトリ。
 
 本番サイトは ConoHa WING（www1188.conoha.ne.jp）上の WordPress で、
-親テーマ **SWELL**＋子テーマ（本番ディレクトリ名 `swell_child`）で構成されている。
+親テーマ **SWELL**＋子テーマ **`hello`** で構成されている（本番・ローカルともに `hello`）。
 このリポジトリでは開発対象である **子テーマ `hello`** と
 **ローカル開発環境（Docker）** をバージョン管理する。
 
@@ -17,7 +17,7 @@ hello-international/
 └── wp-content/
     └── themes/
         ├── swell/        # SWELL 本体（有償テーマ。.gitignore で除外・Git管理外）
-        └── hello/        # ★開発対象（Git管理。本番では swell_child）
+        └── hello/        # ★開発対象（Git管理。本番ディレクトリ名も hello）
 ```
 
 > SWELL 本体は有償テーマのためコミットしない。`.gitignore` で除外している。
@@ -58,6 +58,5 @@ ssh -p 8022 c9969246@www1188.conoha.ne.jp \
   | tar xzf - -C wp-content/themes
 ```
 
-> 子テーマは本番ディレクトリ名が `swell_child`、本リポジトリでは `hello` に改名して管理している。
-> 本番へ反映する際はディレクトリ名の対応に注意（デプロイ時に `hello` → `swell_child` へ、
-> または本番側ディレクトリも `hello` に統一する）。
+> 子テーマは本番・ローカルともにディレクトリ名 `hello`（2026-06-25 に本番を統一済み）。
+> `main` を本番へ反映する際は `wp-content/themes/hello/` → 本番 `hello/` に rsync する。
