@@ -19,7 +19,7 @@ add_action( 'init', function () {
 
 	// 横断タグ（非階層）。Hello! Magazine の全コンテンツで共有。
 	register_taxonomy( 'hello_tag', array(
-		'hello_live', 'hello_interview', 'hello_faq', 'hello_ranking', 'hello_agent',
+		'hello_article', 'hello_live', 'hello_interview', 'hello_faq', 'hello_ranking', 'hello_agent',
 	), array(
 		'labels'            => array(
 			'name'          => 'タグ',

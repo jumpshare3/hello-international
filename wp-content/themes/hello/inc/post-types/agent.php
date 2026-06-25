@@ -31,9 +31,10 @@ add_action( 'init', function () {
 		),
 		'public'        => true,
 		'has_archive'   => true,   // 一覧ページ
-		'show_in_menu'  => 'hello-magazine',
+		'show_in_menu'  => true,
 		'show_in_rest'  => true,
 		'menu_icon'     => 'dashicons-groups',
+		'menu_position' => 31,
 		'rewrite'       => array( 'slug' => 'agent', 'with_front' => false ),
 		'supports'      => array( 'title', 'editor', 'thumbnail', 'excerpt', 'revisions' ),
 	) );

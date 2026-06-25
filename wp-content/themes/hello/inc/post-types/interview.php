@@ -22,9 +22,10 @@ add_action( 'init', function () {
 		),
 		'public'        => true,
 		'has_archive'   => true,
-		'show_in_menu'  => 'hello-magazine',
+		'show_in_menu'  => true,
 		'show_in_rest'  => true,
 		'menu_icon'     => 'dashicons-microphone',
+		'menu_position' => 28,
 		'rewrite'       => array( 'slug' => 'interview', 'with_front' => false ),
 		'supports'      => array( 'title', 'editor', 'thumbnail', 'excerpt', 'revisions' ),
 	) );

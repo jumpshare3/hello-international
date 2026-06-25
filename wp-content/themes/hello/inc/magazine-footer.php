@@ -101,11 +101,42 @@ function hello_get_magazine_footer() {
  * ワイヤーでは インタビュー詳細 と よくある質問まとめ のコンテンツ下に出る。
  * $faq=true で「みんなが疑問に思う インターFAQまとめました」のリードを追加。
  */
-function hello_get_recommend_cta( $faq = false ) {
-	$picks = array(
-		array( '「マレーシアで人気のIB校とは？」', 'IBってなに？学費や進路への影響を解説！' ),
-		array( '「学費だけじゃない！保護者が見てるポイント5選」', '安心感・言語環境など、現地ママのリアル口コミを分析' ),
-	);
+function hello_get_recommend_cta( $faq = false, $post_id = null ) {
+	$post_id = $post_id ?: get_the_ID();
+
+	// 投稿ごとに指定された記事（ACF）。未指定なら最新のマガジン記事。
+	$ids = array();
+	if ( $post_id && function_exists( 'get_field' ) ) {
+		$sel = get_field( 'recommend_articles', $post_id );
+		if ( $sel ) {
+			$ids = array_map( 'intval', (array) $sel );
+		}
+	}
+	if ( ! $ids ) {
+		$ids = get_posts( array(
+			'post_type'      => 'hello_article',
+			'post_status'    => 'publish',
+			'posts_per_page' => 2,
+			'fields'         => 'ids',
+		) );
+	}
+
+	$cards = array();
+	foreach ( $ids as $aid ) {
+		$cards[] = array(
+			'ttl'  => get_the_title( $aid ),
+			'desc' => wp_trim_words( wp_strip_all_tags( get_the_excerpt( $aid ) ), 36, '…' ),
+			'url'  => get_permalink( $aid ),
+		);
+	}
+	// 記事がまだ無い場合の静的フォールバック
+	if ( ! $cards ) {
+		$cards = array(
+			array( 'ttl' => '「マレーシアで人気のIB校とは？」', 'desc' => 'IBってなに？学費や進路への影響を解説！', 'url' => '#' ),
+			array( 'ttl' => '「学費だけじゃない！保護者が見てるポイント5選」', 'desc' => '安心感・言語環境など、現地ママのリアル口コミを分析', 'url' => '#' ),
+		);
+	}
+
 	ob_start();
 	?>
 	<aside class="hello-reco" aria-label="おすすめ記事">
@@ -114,10 +145,10 @@ function hello_get_recommend_cta( $faq = false ) {
 		<?php endif; ?>
 		<p class="hello-reco__ttl">📖 知って得する Helo! マガジン</p>
 		<div class="hello-reco__cards">
-			<?php foreach ( $picks as $p ) : ?>
-				<a class="hello-reco__card" href="#">
-					<span class="hello-reco__card-ttl"><?php echo esc_html( $p[0] ); ?></span>
-					<span class="hello-reco__card-desc"><?php echo esc_html( $p[1] ); ?></span>
+			<?php foreach ( $cards as $c ) : ?>
+				<a class="hello-reco__card" href="<?php echo esc_url( $c['url'] ); ?>">
+					<span class="hello-reco__card-ttl"><?php echo esc_html( $c['ttl'] ); ?></span>
+					<?php if ( ! empty( $c['desc'] ) ) : ?><span class="hello-reco__card-desc"><?php echo esc_html( $c['desc'] ); ?></span><?php endif; ?>
 				</a>
 			<?php endforeach; ?>
 		</div>

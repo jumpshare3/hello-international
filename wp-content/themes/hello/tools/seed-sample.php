@@ -276,8 +276,48 @@ for ( $i = 1; $i <= 20; $i++ ) {
 	update_field( 'official_url', 'https://example.com/', $id );
 	wp_set_object_terms( $id, array( $curricula[ $i % count( $curricula ) ], $curricula[ ( $i + 1 ) % count( $curricula ) ] ), 'hello_curriculum' );
 	wp_set_object_terms( $id, array( $regions[ $i % count( $regions ) ], $regions[ ( $i + 1 ) % count( $regions ) ] ), 'hello_region' );
+	wp_set_object_terms( $id, array( $regions[ $i % count( $regions ) ], $regions[ ( $i + 1 ) % count( $regions ) ] ), 'hello_region' );
 	wp_set_object_terms( $id, array( $prices[ $i % count( $prices ) ] ), 'hello_price' );
 	wp_set_object_terms( $id, array( $mtags[ ( $i - 1 ) % count( $mtags ) ] ), 'hello_tag' );
+}
+
+// ---- マガジン記事（通常記事）20件 ----
+$articles = array(
+	array( 'マレーシアで人気のIB校とは？', 'IBってなに？学費や進路への影響をやさしく解説します。', '進路・進学' ),
+	array( '学費だけじゃない！保護者が見てるポイント5選', '安心感・言語環境など、現地ママのリアル口コミから分析しました。', '学校選び' ),
+	array( '英国式・米国式・IBの違いを徹底比較', 'カリキュラムの特徴と、帰国後の進路への影響を整理します。', '進路・進学' ),
+	array( 'EAL（英語補習）ってどんな仕組み？', '英語が不安でも大丈夫。サポート体制の実際を紹介します。', '英語・学習' ),
+	array( '入学までの流れと必要書類まとめ', '出願から入学までのスケジュールと準備物を解説します。', '入学前の準備' ),
+	array( '学費の目安と「学費以外」にかかる費用', '初年度費用の内訳と、見落としがちな追加費用を整理。', '費用学費' ),
+	array( 'KL中心部 vs モントキアラ、住むならどっち？', 'エリア別の通学・生活環境を比較します。', '学校選び' ),
+	array( 'スクールバスは使うべき？通学事情のリアル', '通学手段の選び方と費用・安全性のポイント。', '学校生活' ),
+	array( '入学前にやっておきたい英語準備3つ', '渡航前にできる、無理のない英語準備を紹介します。', '英語・学習' ),
+	array( '現地ママに聞いた「学校選びの後悔」', '実際の声から学ぶ、学校選びの注意点。', '学校選び' ),
+	array( 'インター校の一日のスケジュール例', '登校から放課後まで、典型的な一日を紹介します。', '学校生活' ),
+	array( '課外活動（ECA）の選び方', '子どもに合った放課後アクティビティの見つけ方。', '学校生活' ),
+	array( '日本語の維持はどうする？', '海外でも日本語力を保つための家庭の工夫。', '生活の知恵' ),
+	array( '学年区分（Year）の対応早見表', '日本の学年とインター校のYearの対応をまとめました。', '入学前の準備' ),
+	array( '見学・オープンデーでチェックすべき点', '学校見学で見るべきポイントをチェックリスト化。', '学校選び' ),
+	array( '進学実績の見方と注意点', '進学実績データの読み解き方を解説します。', '進路・進学' ),
+	array( '寮（ボーディング）という選択肢', '寮生活のメリット・デメリットと費用感。', '学校生活' ),
+	array( '入学後によくあるつまずきと対処法', '最初の数か月に起きやすい悩みと乗り越え方。', '生活の知恵' ),
+	array( '兄弟同時入学のコツと割引制度', '複数人入学時の手続きと費用面のポイント。', '費用学費' ),
+	array( '帰国を見据えた学校選びの考え方', '将来の帰国・進学を見据えた選択のヒント。', '進路・進学' ),
+);
+$article_ids = array();
+foreach ( $articles as $row ) {
+	list( $t, $ex, $tag ) = $row;
+	$aid = hello_seed_post( 'hello_article', $t, "<p>{$ex}</p><p>本記事では、{$t}について現地のリアルな情報をもとに分かりやすく解説します。（サンプル本文）</p>" );
+	wp_update_post( array( 'ID' => $aid, 'post_excerpt' => $ex ) );
+	wp_set_object_terms( $aid, array( $tag ), 'hello_tag' );
+	$article_ids[] = $aid;
+}
+
+// CTAデモ：インタビュー showcase に「おすすめ記事」を明示指定（残りは最新記事を自動表示）
+$demo = array_slice( $article_ids, 0, 2 );
+$int  = get_posts( array( 'post_type' => 'hello_interview', 'title' => 'ABCインターナショナルスクール 卒業生インタビュー', 'posts_per_page' => 1, 'fields' => 'ids', 'post_status' => 'any' ) );
+if ( $int && function_exists( 'update_field' ) ) {
+	update_field( 'recommend_articles', $demo, $int[0] );
 }
 
 echo "seed done.\n";

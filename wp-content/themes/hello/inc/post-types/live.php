@@ -23,9 +23,10 @@ add_action( 'init', function () {
 		),
 		'public'        => true,
 		'has_archive'   => true,
-		'show_in_menu'  => 'hello-magazine',
+		'show_in_menu'  => true,
 		'show_in_rest'  => true,
 		'menu_icon'     => 'dashicons-video-alt3',
+		'menu_position' => 27,
 		'rewrite'       => array( 'slug' => 'live', 'with_front' => false ),
 		'supports'      => array( 'title', 'editor', 'thumbnail', 'excerpt', 'revisions' ),
 	) );

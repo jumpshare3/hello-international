@@ -22,6 +22,7 @@ define( 'HELLO_WIREFRAME_BASE', 'https://docs.google.com/presentation/d/1RzRoZPF
  */
 function hello_current_wireframe_ref() {
 	$map_single = array(
+		'hello_article'   => array( 'label' => 'マガジン記事', 'anchor' => '' ),
 		'hello_live'      => array( 'label' => 'YouTube LIVE 記事', 'anchor' => '' ),
 		'hello_interview' => array( 'label' => 'インタビュー記事', 'anchor' => '' ),
 		'hello_faq'       => array( 'label' => 'よくある質問', 'anchor' => '' ),
@@ -29,6 +30,7 @@ function hello_current_wireframe_ref() {
 		'hello_agent'     => array( 'label' => 'エージェント比較 詳細', 'anchor' => '' ),
 	);
 	$map_archive = array(
+		'hello_article'   => array( 'label' => 'マガジン記事 一覧', 'anchor' => '' ),
 		'hello_live'      => array( 'label' => 'YouTube LIVE 一覧', 'anchor' => '' ),
 		'hello_interview' => array( 'label' => 'インタビュー 一覧', 'anchor' => '' ),
 		'hello_faq'       => array( 'label' => 'よくある質問 一覧', 'anchor' => '' ),

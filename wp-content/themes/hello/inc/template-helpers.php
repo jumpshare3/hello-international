@@ -12,6 +12,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  */
 function hello_magazine_post_types() {
 	return array(
+		'hello_article'   => array( 'label' => '記事', 'icon' => '📝' ),
 		'hello_live'      => array( 'label' => 'YouTube LIVE', 'icon' => '🔴' ),
 		'hello_interview' => array( 'label' => '体験談・インタビュー', 'icon' => '🎤' ),
 		'hello_faq'       => array( 'label' => 'よくある質問', 'icon' => '❓' ),

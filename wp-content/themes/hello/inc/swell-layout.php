@@ -29,7 +29,7 @@ add_filter( 'swell_is_show_ttltop', function ( $is_show ) {
 } );
 
 add_filter( 'swell_is_show_sidebar', function ( $is_show ) {
-	$cpts = array( 'hello_live', 'hello_interview', 'hello_faq', 'hello_ranking', 'hello_agent' );
+	$cpts = function_exists( 'hello_magazine_post_types' ) ? array_keys( hello_magazine_post_types() ) : array();
 
 	// サイトのトップ（マガジンTOP）
 	if ( is_front_page() ) {

@@ -28,8 +28,14 @@ wp-content/themes/hello/
 
 ## カスタム投稿タイプ（CPT）
 
+> 管理画面は **各CPTを大メニュー（トップレベル）に分離**。各CPT配下に **「設定」サブメニュー**
+> （ACFオプションページ）を用意（今後ここに各種設定を追加）。
+> 各投稿の **おすすめ記事(CTA)** は ACF `recommend_articles`（hello_article を最大2件）で指定、
+> 未指定なら最新記事を表示。
+
 | slug | 名称 | アーカイブ | 主なACF |
 |------|------|:--:|------|
+| `hello_article` | マガジン記事（通常記事） | ○ | 本文(editor)／recommend_articles 等。CTA連動の供給元 |
 | `hello_live` | YouTube LIVE | ○ | youtube_url, live_date, members_only, chapters[], qa[] |
 | `hello_interview` | インタビュー | ○ | school_name, position, qa[]（category/q/a） |
 | `hello_faq` | よくある質問（**1問=1投稿のプール**） | ○ | faq_answer（質問=タイトル）／タクソノミー: 対象区分・セクション |
