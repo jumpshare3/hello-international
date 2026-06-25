@@ -17,7 +17,9 @@ $base_url = ( is_front_page() ) ? home_url( '/' ) : get_permalink();
 if ( 'all' !== $cur_type && ! isset( $types[ $cur_type ] ) ) {
 	$cur_type = 'all';
 }
-$query_pt = 'all' === $cur_type ? array_keys( $types ) : array( $cur_type );
+// 個別Q&A(hello_faq)は「まとめ」経由で見せるため、TOPの記事フィードからは除外。
+$feed_types = array_values( array_diff( array_keys( $types ), array( 'hello_faq' ) ) );
+$query_pt   = 'all' === $cur_type ? $feed_types : array( $cur_type );
 
 $args = array(
 	'post_type'      => $query_pt,
@@ -42,7 +44,7 @@ hello_lang_switcher();
 
 <?php if ( 'all' === $cur_type && ! $cur_tag ) :
 	$featured = new WP_Query( array(
-		'post_type'      => array_keys( $types ),
+		'post_type'      => $feed_types,
 		'post_status'    => 'publish',
 		'posts_per_page' => 3,
 		'no_found_rows'  => true,
@@ -66,6 +68,13 @@ endif; ?>
 		'all' === $cur_type ? ' is-current' : '',
 		esc_url( $tab_url ) );
 	foreach ( $types as $pt => $meta ) {
+		// よくある質問は「まとめ一覧（ハブ）」へ誘導する
+		if ( 'hello_faq' === $pt ) {
+			printf( '<a class="hello-top__tab" href="%s">%s %s</a>',
+				esc_url( get_post_type_archive_link( 'hello_faq' ) ),
+				esc_html( $meta['icon'] ), esc_html( $meta['label'] ) );
+			continue;
+		}
 		printf( '<a class="hello-top__tab%s" href="%s">%s %s</a>',
 			$cur_type === $pt ? ' is-current' : '',
 			esc_url( add_query_arg( 'mag_type', $pt, $tab_url ) ),
