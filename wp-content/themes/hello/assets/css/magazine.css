@@ -76,6 +76,18 @@
 .hello-info dt { color:#6b7280; }
 .hello-cta { display:inline-block; margin-top:1em; background:var(--hello-accent); color:#fff; text-decoration:none; padding:.6em 1.4em; border-radius:999px; font-weight:700; }
 
+/* ワイヤー参照バッジ（社内チェッカー用・公開前にOFF可） */
+.hello-wfref { position:fixed; left:12px; bottom:12px; z-index:9999; max-width:min(92vw,560px);
+  display:flex; align-items:center; gap:.5em; flex-wrap:wrap;
+  background:rgba(17,24,39,.92); color:#fff; font-size:.74rem; line-height:1.4;
+  padding:.45em .8em; border-radius:8px; box-shadow:0 4px 14px rgba(0,0,0,.25); }
+.hello-wfref__tag { background:#f59e0b; color:#111827; font-weight:700; padding:.05em .5em; border-radius:5px; }
+.hello-wfref__file { opacity:.85; word-break:break-all; }
+.hello-wfref__sep { opacity:.5; }
+.hello-wfref__link { color:#7dd3fc; text-decoration:none; font-weight:700; white-space:nowrap; }
+.hello-wfref__link:hover { text-decoration:underline; }
+@media print { .hello-wfref { display:none; } }
+
 /* 得意分野・専門領域（チェックリスト） */
 .hello-specialty__cols { display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:1.2em; }
 .hello-specialty__ttl { font-size:.95rem; font-weight:700; margin:0 0 .4em; }
