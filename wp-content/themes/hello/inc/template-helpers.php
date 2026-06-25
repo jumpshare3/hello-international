@@ -238,5 +238,8 @@ function hello_main_open( $extra_class = '' ) {
 	echo '<article class="l-mainContent__inner hello-mag ' . esc_attr( $extra_class ) . '" data-clarity-region="article">';
 }
 function hello_main_close() {
+	if ( function_exists( 'hello_get_magazine_footer' ) ) {
+		echo hello_get_magazine_footer(); // phpcs:ignore WordPress.Security.EscapeOutput
+	}
 	echo '</article></main>';
 }

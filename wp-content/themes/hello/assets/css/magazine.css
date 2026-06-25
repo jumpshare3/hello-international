@@ -76,6 +76,25 @@
 .hello-info dt { color:#6b7280; }
 .hello-cta { display:inline-block; margin-top:1em; background:var(--hello-accent); color:#fff; text-decoration:none; padding:.6em 1.4em; border-radius:999px; font-weight:700; }
 
+/* マガジン共通フッター（仮デザイン） */
+.hello-mfooter { margin:2.5em 0 0; padding-top:1.5em; border-top:2px solid var(--hello-line); text-align:center; color:#374151; }
+.hello-mfooter__cta { background:#f3f4f6; border:1px solid var(--hello-line); border-radius:10px; padding:1.4em 1em; margin:0 0 1em; }
+.hello-mfooter__cta.-trial { background:#f9fafb; }
+.hello-mfooter__cta-lead { font-weight:700; margin:0 0 1em; line-height:1.7; }
+.hello-mfooter__btn { display:inline-block; min-width:60%; background:#fff; border:1px solid #9ca3af; border-radius:8px; padding:.7em 1.4em; text-decoration:none; color:var(--hello-ink); font-weight:700; }
+.hello-mfooter__btn:hover { border-color:var(--hello-accent); color:var(--hello-accent); }
+.hello-mfooter__ig { margin:1.2em 0; }
+.hello-mfooter__ig a, .hello-mfooter__contact a { text-decoration:none; color:var(--hello-ink); }
+.hello-mfooter__nav { display:flex; flex-direction:column; gap:1em; align-items:center; margin:1.5em 0; }
+.hello-mfooter__nav a { text-decoration:none; color:var(--hello-ink); }
+.hello-mfooter__nav a:hover, .hello-mfooter__legal a:hover { color:var(--hello-accent); }
+.hello-mfooter__legal { font-size:.85rem; color:#6b7280; margin:1.2em 0 .4em; line-height:2; }
+.hello-mfooter__legal a { color:#6b7280; text-decoration:none; }
+.hello-mfooter__contact { margin:.4em 0 1.2em; }
+.hello-mfooter__lang { font-size:.85rem; color:#6b7280; margin:1em 0; }
+.hello-mfooter__lang a { color:var(--hello-accent); text-decoration:none; }
+.hello-mfooter__copy { font-size:.78rem; color:#9ca3af; border-top:1px solid var(--hello-line); padding-top:1em; margin-top:1em; }
+
 /* ワイヤー参照バッジ（社内チェッカー用・公開前にOFF可） */
 .hello-wfref { position:fixed; left:12px; bottom:12px; z-index:9999; max-width:min(92vw,560px);
   display:flex; align-items:center; gap:.5em; flex-wrap:wrap;
