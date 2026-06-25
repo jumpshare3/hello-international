@@ -26,6 +26,14 @@
 - `/magazine/`（TOP）, 各CPTの single / archive いずれも **HTTP 200**・致命的エラーなし。
 - TOP は ヒーロー＋注目の記事＋種別タブ＋タグ絞り込み＋記事一覧 が表示。
 
+## プレビュー（公開前）モード
+- WordPress「設定 > 表示設定 > 検索エンジンでの表示」を**インデックスしない**（`blog_public=0`）に
+  しておくと、テーマが **noindex（meta＋X-Robots-Tag）** を出し、誘導的に誤判定されやすい
+  **ダミーCTA（口コミ投稿/無料トライアル）を「準備中」表示に抑制**する（`inc/noindex.php`）。
+- Google「危険なサイト」警告（Safe Browsing）対策：本番はBasic認証＋noindexでクロール対象外。
+  既存フラグの解除は **Google Search Console で審査リクエスト**が必要（所有者対応）。
+- **公開時**：Basic認証を外し、`blog_public=1`（検索エンジンに表示）に戻すと本CTA表示＋indexable。
+
 ## 申し送り（公開前に対応）
 - 投入済みは**サンプル（ダミー）コンテンツ**。LIVE のYouTube URLもダミー。
   公開前に実コンテンツへ差し替え／削除すること。

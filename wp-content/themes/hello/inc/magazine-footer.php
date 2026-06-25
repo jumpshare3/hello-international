@@ -40,18 +40,26 @@ function hello_get_magazine_footer() {
 	ob_start();
 	?>
 	<footer class="hello-mfooter" role="contentinfo">
-		<!-- CTA: 口コミ投稿 -->
-		<div class="hello-mfooter__cta">
-			<p class="hello-mfooter__cta-lead">「あなたの経験が、これからの誰かを助ける」<br>
-				インター選びで悩むママたちに、リアルな声を届けませんか？</p>
-			<a class="hello-mfooter__btn" href="#">口コミ投稿はコチラ &gt;&gt;</a>
-		</div>
+		<?php if ( function_exists( 'hello_is_preview' ) && hello_is_preview() ) : ?>
+			<!-- プレビュー中は誘導的CTAを控えめに（本番システム連携後に本CTAを表示） -->
+			<div class="hello-mfooter__cta -preview">
+				<p class="hello-mfooter__note">※ 口コミ投稿・会員（無料トライアル等）機能は準備中です。<br>
+					本番のプラットフォーム連携後に提供予定です。</p>
+			</div>
+		<?php else : ?>
+			<!-- CTA: 口コミ投稿 -->
+			<div class="hello-mfooter__cta">
+				<p class="hello-mfooter__cta-lead">「あなたの経験が、これからの誰かを助ける」<br>
+					インター選びで悩むママたちに、リアルな声を届けませんか？</p>
+				<a class="hello-mfooter__btn" href="#">口コミ投稿はコチラ &gt;&gt;</a>
+			</div>
 
-		<!-- CTA: 無料トライアル -->
-		<div class="hello-mfooter__cta -trial">
-			<p>💳 0円で、口コミも質問もぜんぶ見れる！<br>
-				👉 まずは <a href="#">無料トライアル</a> から</p>
-		</div>
+			<!-- CTA: 無料トライアル -->
+			<div class="hello-mfooter__cta -trial">
+				<p>💳 0円で、口コミも質問もぜんぶ見れる！<br>
+					👉 まずは <a href="#">無料トライアル</a> から</p>
+			</div>
+		<?php endif; ?>
 
 		<p class="hello-mfooter__ig"><a href="#">📷 Instagramで最新情報チェック &gt;&gt;</a></p>
 
