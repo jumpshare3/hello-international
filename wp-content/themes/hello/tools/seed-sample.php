@@ -113,10 +113,18 @@ update_field( 'grade_support', array( 'Early Years', 'Primary', 'Secondary' ), $
 update_field( 'system_tags', array( '日本語スタッフ在籍', '現地法人あり', '日本法人あり', 'IB対応実績あり' ), $id );
 update_field( 'support_fields', array(
 	array( 'field_name' => '学校選定', 'stars' => 5, 'note' => '複数校の比較表を作成' ),
-	array( 'field_name' => '見学アレンジ', 'stars' => 4, 'note' => '日本語通訳が同行' ),
-	array( 'field_name' => '出願手続き', 'stars' => 5, 'note' => '' ),
-	array( 'field_name' => '学生ビザ', 'stars' => 4, 'note' => '' ),
-	array( 'field_name' => '現地生活支援', 'stars' => 2, 'note' => '提携先を紹介' ),
+	array( 'field_name' => '見学アレンジ', 'stars' => 2, 'note' => '日本語通訳が同行' ),
+	array( 'field_name' => '出願手続き', 'stars' => 4, 'note' => '' ),
+	array( 'field_name' => '英文書類支援', 'stars' => 1, 'note' => '成績書の英訳に対応' ),
+	array( 'field_name' => '学生ビザ', 'stars' => 2, 'note' => '' ),
+	array( 'field_name' => '家族ビザ', 'stars' => 1, 'note' => '' ),
+	array( 'field_name' => '不動産紹介', 'stars' => 1, 'note' => '提携不動産会社を紹介' ),
+	array( 'field_name' => '現地生活支援', 'stars' => 1, 'note' => '' ),
+	array( 'field_name' => '入学後フォロー', 'stars' => 0, 'note' => '' ),
+	array( 'field_name' => '法人設立のフォロー', 'stars' => 1, 'note' => '' ),
+	array( 'field_name' => '車購入サポート', 'stars' => 0, 'note' => '' ),
+	array( 'field_name' => '緊急時の対応', 'stars' => 1, 'note' => '事故・病院等に対応' ),
+	array( 'field_name' => '入国後の問題解決応力', 'stars' => 1, 'note' => '' ),
 ), $id );
 update_field( 'stance_text', '特定の学校を一方的に推薦せず、ご家庭の方針に寄り添った中立的な立場でサポートします。', $id );
 update_field( 'recommended_families', "・英語がまだ話せない/不安なお子さま\n・初めての海外教育移住で何から始めればよいか分からない方", $id );
@@ -129,10 +137,12 @@ update_field( 'languages', '日本語 / 英語', $id );
 update_field( 'location', 'クアラルンプール', $id );
 update_field( 'contact_method', 'WhatsApp', $id );
 update_field( 'response_time', '24時間以内', $id );
+update_field( 'has_japan_base', 1, $id );
+update_field( 'has_local_staff', 1, $id );
 update_field( 'official_url', 'https://example.com/', $id );
-wp_set_object_terms( $id, array( 'イギリス式（British）' ), 'hello_curriculum' );
-wp_set_object_terms( $id, array( 'KL中心部' ), 'hello_region' );
-wp_set_object_terms( $id, array( 'RM20,001〜35,000' ), 'hello_price' );
+wp_set_object_terms( $id, array( 'イギリス式（British）', 'アメリカ式（US）', 'IB（国際バカロレア）', 'オーストラリア式（Australian）' ), 'hello_curriculum' );
+wp_set_object_terms( $id, array( 'KL中心部', 'モントキアラ／スリハルタマス', 'バンサー／KLセントラル' ), 'hello_region' );
+wp_set_object_terms( $id, array( 'RM20,000以下', 'RM20,001〜35,000' ), 'hello_price' );
 wp_set_object_terms( $id, array( 'その他・自由記述' ), 'hello_tag' );
 
 // マガジンTOPはサイトのトップ（front-page.php）が担うため、固定ページは作らない。

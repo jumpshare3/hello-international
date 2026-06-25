@@ -65,11 +65,12 @@ acf_add_local_field_group( array(
 			'type'         => 'repeater',
 			'layout'       => 'table',
 			'button_label' => '項目を追加',
-			'instructions' => '学校選定・見学アレンジ・出願手続き・ビザ・現地生活支援 等。★は各最大5、合計20まで（表示側で検証）。',
+			'instructions' => '学校選定／見学アレンジ／出願手続き／英文書類支援／学生ビザ／家族ビザ／不動産紹介／現地生活支援／入学後フォロー／法人設立のフォロー／車購入サポート／緊急時の対応／入国後の問題解決応力 等。★は各最大5、合計20まで（表示側で検証）。',
 			'sub_fields'   => array(
 				array( 'key' => 'field_hello_ag_sup_name', 'label' => '項目', 'name' => 'field_name', 'type' => 'text' ),
 				array( 'key' => 'field_hello_ag_sup_stars', 'label' => '★（0〜5）', 'name' => 'stars', 'type' => 'number', 'min' => 0, 'max' => 5 ),
-				array( 'key' => 'field_hello_ag_sup_note', 'label' => '補足', 'name' => 'note', 'type' => 'text' ),
+				// ★の横に付くテキストは最大60文字（ワイヤー指定）
+				array( 'key' => 'field_hello_ag_sup_note', 'label' => '補足（最大60文字）', 'name' => 'note', 'type' => 'text', 'maxlength' => 60 ),
 			),
 		),
 

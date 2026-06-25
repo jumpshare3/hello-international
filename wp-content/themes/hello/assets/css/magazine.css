@@ -76,6 +76,14 @@
 .hello-info dt { color:#6b7280; }
 .hello-cta { display:inline-block; margin-top:1em; background:var(--hello-accent); color:#fff; text-decoration:none; padding:.6em 1.4em; border-radius:999px; font-weight:700; }
 
+/* 得意分野・専門領域（チェックリスト） */
+.hello-specialty__cols { display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:1.2em; }
+.hello-specialty__ttl { font-size:.95rem; font-weight:700; margin:0 0 .4em; }
+.hello-checklist { list-style:none; margin:0; padding:0; display:grid; gap:.25em; }
+.hello-checklist li { font-size:.88rem; }
+.hello-checklist li.is-off { color:#9ca3af; }
+.hello-note { font-size:.78rem; color:#9ca3af; margin:.4em 0 0; }
+
 /* TOP ヒーロー */
 .hello-hero { text-align:center; padding:1.4em 0 .6em; }
 .hello-hero__ttl { font-size:1.8rem; font-weight:800; margin:0 0 .3em; letter-spacing:.02em; }

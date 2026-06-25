@@ -205,6 +205,30 @@ function hello_magazine_card( $post_id = null ) {
 }
 
 /**
+ * タクソノミーのマスタ一覧をチェックリスト表示（✅=付与済み / ☐=未付与）。
+ * ワイヤーの「得意な価格帯／カリキュラム／強い地域」のチェック表示に対応。
+ */
+function hello_term_checklist( $post_id, $taxonomy ) {
+	$all = get_terms( array( 'taxonomy' => $taxonomy, 'hide_empty' => false ) );
+	if ( empty( $all ) || is_wp_error( $all ) ) {
+		return;
+	}
+	$assigned = wp_get_object_terms( $post_id, $taxonomy, array( 'fields' => 'ids' ) );
+	$assigned = is_wp_error( $assigned ) ? array() : $assigned;
+	echo '<ul class="hello-checklist">';
+	foreach ( $all as $term ) {
+		$on = in_array( $term->term_id, $assigned, true );
+		printf(
+			'<li class="%s">%s %s</li>',
+			$on ? 'is-on' : 'is-off',
+			$on ? '✅' : '☐',
+			esc_html( $term->name )
+		);
+	}
+	echo '</ul>';
+}
+
+/**
  * SWELL のメインラッパー開始/終了（テンプレート共通）。
  */
 function hello_main_open( $extra_class = '' ) {

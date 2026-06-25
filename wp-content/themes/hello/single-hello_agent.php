@@ -64,6 +64,26 @@ while ( have_posts() ) :
 		</section>
 	<?php endif; ?>
 
+	<?php // 得意分野・専門領域（マスタに対する ✅/☐ チェック表示） ?>
+	<section class="hello-sec hello-specialty">
+		<h2 class="hello-sec__ttl">得意分野・専門領域</h2>
+		<div class="hello-specialty__cols">
+			<div>
+				<h3 class="hello-specialty__ttl">💰 得意な価格帯</h3>
+				<?php hello_term_checklist( get_the_ID(), 'hello_price' ); ?>
+				<p class="hello-note">※ Primary（小学校）年間学費の目安です。</p>
+			</div>
+			<div>
+				<h3 class="hello-specialty__ttl">📒 得意なカリキュラム</h3>
+				<?php hello_term_checklist( get_the_ID(), 'hello_curriculum' ); ?>
+			</div>
+			<div>
+				<h3 class="hello-specialty__ttl">📍 強い地域</h3>
+				<?php hello_term_checklist( get_the_ID(), 'hello_region' ); ?>
+			</div>
+		</div>
+	</section>
+
 	<?php
 	$blocks = array(
 		'わたしたちのスタンス'       => $stance,
@@ -97,6 +117,9 @@ while ( have_posts() ) :
 					echo '<dt>' . esc_html( $k ) . '</dt><dd>' . esc_html( $v ) . '</dd>';
 				}
 			}
+			// 日本拠点／現地常駐スタッフの有無（ワイヤー記載項目）
+			echo '<dt>日本拠点の有無</dt><dd>' . ( get_field( 'has_japan_base' ) ? 'あり' : 'なし' ) . '</dd>';
+			echo '<dt>現地常駐スタッフの有無</dt><dd>' . ( get_field( 'has_local_staff' ) ? 'あり' : 'なし' ) . '</dd>';
 			?>
 		</dl>
 	</section>
