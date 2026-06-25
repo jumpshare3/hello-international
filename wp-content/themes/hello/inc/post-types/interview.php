@@ -25,7 +25,7 @@ add_action( 'init', function () {
 		'show_in_menu'  => 'hello-magazine',
 		'show_in_rest'  => true,
 		'menu_icon'     => 'dashicons-microphone',
-		'rewrite'       => array( 'slug' => 'magazine/interview', 'with_front' => false ),
+		'rewrite'       => array( 'slug' => 'interview', 'with_front' => false ),
 		'supports'      => array( 'title', 'editor', 'thumbnail', 'excerpt', 'revisions' ),
 	) );
 } );

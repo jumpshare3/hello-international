@@ -36,7 +36,8 @@ wp-content/themes/hello/
 | `hello_ranking` | ランキング | ○ | 比較条件, entries[]（順位/評価4+総合/費用/写真 …） |
 | `hello_agent` | エージェント比較 | ○ | タイプタグ, support_fields[]（★合計20）, 体制タグ, 実績 … |
 
-- URL: `/magazine/live/...` のように `magazine/<種別>` を rewrite slug に設定。
+- URL: `/live/...` `/faq/...` のように **種別をそのまま** rewrite slug にする。
+  （サイトがサブドメイン `magazine.` のため、サブディレクトリに `magazine/` は付けない）
 
 ## テンプレート（実装済み）
 

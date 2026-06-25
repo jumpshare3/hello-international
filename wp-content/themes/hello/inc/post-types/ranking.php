@@ -29,7 +29,7 @@ add_action( 'init', function () {
 		'show_in_menu'  => 'hello-magazine',
 		'show_in_rest'  => true,
 		'menu_icon'     => 'dashicons-chart-bar',
-		'rewrite'       => array( 'slug' => 'magazine/ranking', 'with_front' => false ),
+		'rewrite'       => array( 'slug' => 'ranking', 'with_front' => false ),
 		'supports'      => array( 'title', 'editor', 'thumbnail', 'excerpt', 'revisions' ),
 	) );
 } );

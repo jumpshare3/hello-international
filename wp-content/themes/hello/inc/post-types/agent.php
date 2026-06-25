@@ -34,7 +34,7 @@ add_action( 'init', function () {
 		'show_in_menu'  => 'hello-magazine',
 		'show_in_rest'  => true,
 		'menu_icon'     => 'dashicons-groups',
-		'rewrite'       => array( 'slug' => 'magazine/agent', 'with_front' => false ),
+		'rewrite'       => array( 'slug' => 'agent', 'with_front' => false ),
 		'supports'      => array( 'title', 'editor', 'thumbnail', 'excerpt', 'revisions' ),
 	) );
 } );
