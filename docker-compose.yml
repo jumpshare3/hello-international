@@ -32,7 +32,7 @@ services:
       - wp_core:/var/www/html
       # 開発対象のテーマだけをバインドマウント（ホスト側で編集→即反映）
       - ./wp-content/themes/swell:/var/www/html/wp-content/themes/swell
-      - ./wp-content/themes/swell_child:/var/www/html/wp-content/themes/swell_child
+      - ./wp-content/themes/hello:/var/www/html/wp-content/themes/hello
 
   # 任意: ブラウザからDBを確認したいとき http://localhost:8081
   phpmyadmin:

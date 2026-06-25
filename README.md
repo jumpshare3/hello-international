@@ -3,8 +3,8 @@
 magazine.hello-internationalschool.com の WordPress テーマ開発リポジトリ。
 
 本番サイトは ConoHa WING（www1188.conoha.ne.jp）上の WordPress で、
-親テーマ **SWELL**＋子テーマ **swell_child** で構成されている。
-このリポジトリでは開発対象である **子テーマ swell_child** と
+親テーマ **SWELL**＋子テーマ（本番ディレクトリ名 `swell_child`）で構成されている。
+このリポジトリでは開発対象である **子テーマ `hello`** と
 **ローカル開発環境（Docker）** をバージョン管理する。
 
 ## 構成
@@ -17,7 +17,7 @@ hello-international/
 └── wp-content/
     └── themes/
         ├── swell/        # SWELL 本体（有償テーマ。.gitignore で除外・Git管理外）
-        └── swell_child/  # ★開発対象（Git管理）
+        └── hello/        # ★開発対象（Git管理。本番では swell_child）
 ```
 
 > SWELL 本体は有償テーマのためコミットしない。`.gitignore` で除外している。
@@ -38,7 +38,7 @@ docker compose up -d
 | http://localhost:8081 | phpMyAdmin（DB確認用） |
 
 初回アクセスで WordPress のインストール画面が出るので、サイト名・管理ユーザーを設定し、
-管理画面の「外観 > テーマ」で **SWELL CHILD** を有効化する。
+管理画面の「外観 > テーマ」で **Hello** を有効化する。
 
 ### 停止 / 破棄
 
@@ -50,10 +50,14 @@ docker compose down -v       # DB・WPコアごと完全初期化
 
 ## 本番テーマとの同期（参考）
 
-本番サーバーからテーマを再取得する場合:
+本番サーバーから親テーマ SWELL を再取得する場合:
 
 ```bash
 ssh -p 8022 c9969246@www1188.conoha.ne.jp \
-  'cd ~/public_html/magazine.hello-internationalschool.com/wp-content/themes && tar czf - swell swell_child' \
+  'cd ~/public_html/magazine.hello-internationalschool.com/wp-content/themes && tar czf - swell' \
   | tar xzf - -C wp-content/themes
 ```
+
+> 子テーマは本番ディレクトリ名が `swell_child`、本リポジトリでは `hello` に改名して管理している。
+> 本番へ反映する際はディレクトリ名の対応に注意（デプロイ時に `hello` → `swell_child` へ、
+> または本番側ディレクトリも `hello` に統一する）。
