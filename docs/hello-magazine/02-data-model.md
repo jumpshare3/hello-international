@@ -66,6 +66,9 @@ wp-content/themes/hello/
 - `inc/template-helpers.php` … カード/星評価/言語スイッチャ/タグ/YouTubeユーティリティ。
 - `assets/css/magazine.css` … 表示用スタイル（確認用ベース。デザインは今後調整）。
 - 親テーマSWELLの `l-mainContent` ラッパーに収め、ヘッダー/フッター/サイドバーを継承。
+- `inc/magazine-footer.php` … マガジン共通フッター（CTA／ナビ／法務／言語／コピーライト・仮リンク）。
+  全マガジンページに表示。**インタビュー詳細**と**FAQまとめ**は、その上に
+  別CTA「知って得する Helo! マガジン」（おすすめ記事）も表示。
 
 ## サンプルデータ投入（開発用）
 

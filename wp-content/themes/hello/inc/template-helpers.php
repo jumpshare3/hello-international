@@ -238,6 +238,10 @@ function hello_main_open( $extra_class = '' ) {
 	echo '<article class="l-mainContent__inner hello-mag ' . esc_attr( $extra_class ) . '" data-clarity-region="article">';
 }
 function hello_main_close() {
+	// インタビュー詳細は、共通フッターの前に「知って得するHelo!マガジン」CTAを出す
+	if ( is_singular( 'hello_interview' ) && function_exists( 'hello_get_recommend_cta' ) ) {
+		echo hello_get_recommend_cta( false ); // phpcs:ignore WordPress.Security.EscapeOutput
+	}
 	if ( function_exists( 'hello_get_magazine_footer' ) ) {
 		echo hello_get_magazine_footer(); // phpcs:ignore WordPress.Security.EscapeOutput
 	}

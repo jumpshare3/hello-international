@@ -76,6 +76,16 @@
 .hello-info dt { color:#6b7280; }
 .hello-cta { display:inline-block; margin-top:1em; background:var(--hello-accent); color:#fff; text-decoration:none; padding:.6em 1.4em; border-radius:999px; font-weight:700; }
 
+/* 別CTA：知って得する Helo! マガジン（おすすめ記事） */
+.hello-reco { margin:2em 0 0; padding:1.4em 1em; background:#fffbeb; border:1px solid #fde68a; border-radius:12px; text-align:center; }
+.hello-reco__lead { font-weight:700; line-height:1.7; margin:0 0 .8em; }
+.hello-reco__ttl { font-weight:800; color:#b45309; margin:0 0 1em; }
+.hello-reco__cards { display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:1em; }
+.hello-reco__card { display:block; background:#fff; border:1px solid var(--hello-line); border-radius:10px; padding:1em; text-decoration:none; color:inherit; text-align:left; }
+.hello-reco__card:hover { border-color:#f59e0b; box-shadow:0 4px 12px rgba(0,0,0,.06); }
+.hello-reco__card-ttl { display:block; font-weight:700; margin-bottom:.3em; }
+.hello-reco__card-desc { display:block; font-size:.85rem; color:#6b7280; }
+
 /* マガジン共通フッター（仮デザイン） */
 .hello-mfooter { margin:2.5em 0 0; padding-top:1.5em; border-top:2px solid var(--hello-line); text-align:center; color:#374151; }
 .hello-mfooter__cta { background:#f3f4f6; border:1px solid var(--hello-line); border-radius:10px; padding:1.4em 1em; margin:0 0 1em; }

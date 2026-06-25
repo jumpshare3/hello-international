@@ -96,12 +96,42 @@ function hello_get_magazine_footer() {
 	return ob_get_clean();
 }
 
-/** FAQまとめ固定ページ（[hello_faq] を含む page）の本文末尾に共通フッターを付ける */
+/**
+ * 別CTAセット「知って得する Helo! マガジン」（おすすめ記事ブロック）。
+ * ワイヤーでは インタビュー詳細 と よくある質問まとめ のコンテンツ下に出る。
+ * $faq=true で「みんなが疑問に思う インターFAQまとめました」のリードを追加。
+ */
+function hello_get_recommend_cta( $faq = false ) {
+	$picks = array(
+		array( '「マレーシアで人気のIB校とは？」', 'IBってなに？学費や進路への影響を解説！' ),
+		array( '「学費だけじゃない！保護者が見てるポイント5選」', '安心感・言語環境など、現地ママのリアル口コミを分析' ),
+	);
+	ob_start();
+	?>
+	<aside class="hello-reco" aria-label="おすすめ記事">
+		<?php if ( $faq ) : ?>
+			<p class="hello-reco__lead">みんなが疑問に思う<br>インターFAQまとめました</p>
+		<?php endif; ?>
+		<p class="hello-reco__ttl">📖 知って得する Helo! マガジン</p>
+		<div class="hello-reco__cards">
+			<?php foreach ( $picks as $p ) : ?>
+				<a class="hello-reco__card" href="#">
+					<span class="hello-reco__card-ttl"><?php echo esc_html( $p[0] ); ?></span>
+					<span class="hello-reco__card-desc"><?php echo esc_html( $p[1] ); ?></span>
+				</a>
+			<?php endforeach; ?>
+		</div>
+	</aside>
+	<?php
+	return ob_get_clean();
+}
+
+/** FAQまとめ固定ページ（[hello_faq] を含む page）の本文末尾に 別CTA＋共通フッター を付ける */
 add_filter( 'the_content', function ( $content ) {
 	if ( is_page() && in_the_loop() && is_main_query() ) {
 		$p = get_post();
 		if ( $p && has_shortcode( (string) $p->post_content, 'hello_faq' ) ) {
-			$content .= hello_get_magazine_footer();
+			$content .= hello_get_recommend_cta( true ) . hello_get_magazine_footer();
 		}
 	}
 	return $content;
