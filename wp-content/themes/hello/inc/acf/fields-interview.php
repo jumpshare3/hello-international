@@ -21,15 +21,17 @@ acf_add_local_field_group( array(
 		array( 'key' => 'field_hello_int_school', 'label' => '学校名', 'name' => 'school_name', 'type' => 'text' ),
 		array( 'key' => 'field_hello_int_grade', 'label' => '学区（例: High School）', 'name' => 'grade_level', 'type' => 'text' ),
 		array(
+			// 立場は CMS の表記統一（20260608）に合わせる
 			'key'     => 'field_hello_int_position',
 			'label'   => '立場',
 			'name'    => 'position',
 			'type'    => 'select',
 			'choices' => array(
-				'卒業生' => '卒業生',
-				'在校生' => '在校生',
-				'卒ママ' => '卒ママ',
-				'現ママ' => '現ママ',
+				'在籍中の保護者'         => '在籍中の保護者',
+				'卒業生の保護者'         => '卒業生の保護者',
+				'在校生'                 => '在校生',
+				'卒業生'                 => '卒業生',
+				'入学を検討している保護者' => '入学を検討している保護者',
 			),
 			'allow_null' => 1,
 		),
