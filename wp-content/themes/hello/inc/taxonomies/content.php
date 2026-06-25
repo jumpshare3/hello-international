@@ -34,8 +34,9 @@ add_action( 'init', function () {
 	) );
 
 	// 話者・立場（階層あり：卒業生/在校生・保護者/生徒 などを整理しやすく）
+	// ※ FAQ は対象区分(hello_faq_target)を使うため persona の対象外
 	register_taxonomy( 'hello_persona', array(
-		'hello_live', 'hello_interview', 'hello_faq',
+		'hello_live', 'hello_interview',
 	), array(
 		'labels'            => array(
 			'name'          => '話者・立場',

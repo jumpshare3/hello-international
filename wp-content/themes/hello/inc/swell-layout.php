@@ -39,5 +39,12 @@ add_filter( 'swell_is_show_sidebar', function ( $is_show ) {
 	if ( is_singular( $cpts ) || is_post_type_archive( $cpts ) ) {
 		return false;
 	}
+	// FAQ まとめページ（[hello_faq] ショートコードを含む固定ページ）も1カラム
+	if ( is_page() ) {
+		$p = get_post();
+		if ( $p && has_shortcode( (string) $p->post_content, 'hello_faq' ) ) {
+			return false;
+		}
+	}
 	return $is_show;
 } );

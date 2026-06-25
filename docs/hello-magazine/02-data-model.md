@@ -32,12 +32,29 @@ wp-content/themes/hello/
 |------|------|:--:|------|
 | `hello_live` | YouTube LIVE | ○ | youtube_url, live_date, members_only, chapters[], qa[] |
 | `hello_interview` | インタビュー | ○ | school_name, position, qa[]（category/q/a） |
-| `hello_faq` | よくある質問 | ○ | faq_audience, sections[]（section_label, items[]） |
+| `hello_faq` | よくある質問（**1問=1投稿のプール**） | ○ | faq_answer（質問=タイトル）／タクソノミー: 対象区分・セクション |
 | `hello_ranking` | ランキング | ○ | 比較条件, entries[]（順位/評価4+総合/費用/写真 …） |
 | `hello_agent` | エージェント比較 | ○ | タイプタグ, support_fields[]（★合計20）, 体制タグ, 実績 … |
 
 - URL: `/live/...` `/faq/...` のように **種別をそのまま** rewrite slug にする。
   （サイトがサブドメイン `magazine.` のため、サブディレクトリに `magazine/` は付けない）
+
+## ショートコード（まとめ記事の量産用）
+
+`[hello_faq]` — Q&Aプール（hello_faq）を対象区分・セクションごとに集約してアコーディオン表示。
+まとめ記事は固定ページ/投稿の本文にこれを置くだけで作れる。
+
+| 属性 | 説明 |
+|------|------|
+| `target` | 対象区分の slug（`parent-considering` / `student-considering` / `parent-enrolled` / `student-enrolled`） |
+| `section` | セクション slug で追加絞り込み（任意） |
+| `tag` | hello_tag slug で絞り込み（任意） |
+| `group` | `section`（既定）でセクション見出しごとに分割／`none` で一覧 |
+| `limit` | 最大件数（既定 -1） |
+| `heading` | 見出し（任意） |
+
+例: `[hello_faq target="parent-considering"]` → 入学検討中の保護者向けQ&Aをセクション別に表示。
+（実装: `inc/shortcodes.php`。`[hello_faq]` を含む固定ページは自動で1カラム＋ワイヤー参照バッジ対象になる）
 
 ## テンプレート（実装済み）
 

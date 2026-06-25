@@ -39,6 +39,13 @@ function hello_current_wireframe_ref() {
 	if ( is_front_page() ) {
 		return array( 'label' => 'ハローマガジンTOP（⑲）', 'anchor' => 'g36db62e5aa8_0_104' );
 	}
+	// FAQ まとめページ（[hello_faq] ショートコードを含む固定ページ）
+	if ( is_page() ) {
+		$p = get_post();
+		if ( $p && has_shortcode( (string) $p->post_content, 'hello_faq' ) ) {
+			return array( 'label' => 'よくある質問 まとめ', 'anchor' => '' );
+		}
+	}
 	foreach ( $map_single as $pt => $ref ) {
 		if ( is_singular( $pt ) ) {
 			return $ref;

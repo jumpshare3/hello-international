@@ -164,8 +164,10 @@ function hello_card_meta( $post_id ) {
 			if ( $v = get_field( 'type_stance', $post_id ) ) { $parts[] = $v; }
 			break;
 		case 'hello_faq':
-			$persona = get_the_terms( $post_id, 'hello_persona' );
-			if ( $persona && ! is_wp_error( $persona ) ) { $parts[] = $persona[0]->name; }
+			$target = get_the_terms( $post_id, 'hello_faq_target' );
+			if ( $target && ! is_wp_error( $target ) ) { $parts[] = $target[0]->name; }
+			$sec = get_the_terms( $post_id, 'hello_faq_section' );
+			if ( $sec && ! is_wp_error( $sec ) ) { $parts[] = $sec[0]->name; }
 			break;
 	}
 	return implode( '｜', array_filter( $parts ) );

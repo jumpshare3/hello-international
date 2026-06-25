@@ -67,26 +67,58 @@ update_field( 'qa', array(
 wp_set_object_terms( $id, array( '学校生活' ), 'hello_tag' );
 wp_set_object_terms( $id, array( '卒業生' ), 'hello_persona' );
 
-// ---- よくある質問 ----
-$id = hello_seed_post( 'hello_faq', '入学検討中の保護者向け Q&Aまとめ', 'マレーシア教育移住に関するよくある疑問を整理しています。' );
-update_field( 'faq_audience', 'parent_considering', $id );
-update_field( 'sections', array(
-	array(
-		'section_label' => 'A. 情報収集・学校選び',
-		'items' => array(
-			array( 'question' => 'どのように学校を探しましたか？', 'answer' => '日系企業や駐在員コミュニティから情報を集め、検索サイトやSNSの口コミも確認しました。' ),
-			array( 'question' => '学校を選ぶときに重視したポイントは？', 'answer' => '学費・通学時間・安全性・カリキュラムを重点的に比較しました。' ),
-		),
-	),
-	array(
-		'section_label' => 'B. 出願・入学プロセス',
-		'items' => array(
-			array( 'question' => '出願から入学までどれくらいかかりましたか？', 'answer' => '書類審査や面談を含めて2〜3か月程度を想定して動きました。' ),
-		),
-	),
-), $id );
-wp_set_object_terms( $id, array( '入学前の準備' ), 'hello_tag' );
-wp_set_object_terms( $id, array( '入学を検討している保護者' ), 'hello_persona' );
+// ---- よくある質問（Q&Aプール：1問=1投稿）20件 ----
+// まとめ記事はショートコード [hello_faq target="..."] で量産する。
+$faq_qa = array(
+	// [質問, 回答, 対象区分slug, セクション]
+	array( 'どのように学校を探しましたか？', 'まず日系企業や駐在員コミュニティから情報を集め、並行してインター校検索サイトやSNSの口コミを確認しました。', 'parent-considering', '情報収集・学校選び' ),
+	array( '学校を選ぶときに重視したポイントは？', '駐在家庭では学費・通学時間・安全性・カリキュラムが特に重視され、同じ点を重点的に比較しました。', 'parent-considering', '情報収集・学校選び' ),
+	array( 'カリキュラム（IB／British／American）はどう選びましたか？', '帰国後の進路を想定し、IBやBritishは進学先の選択肢が広い点を評価して選びました。', 'parent-considering', '情報収集・学校選び' ),
+	array( '日本人割合はどれくらいが良いと思いましたか？', '多国籍環境が推奨される一方、日本人が一定数いる安心感も好まれ、全体の2〜3割程度を目安に考えました。', 'parent-considering', '情報収集・学校選び' ),
+	array( '何校くらい見学しましたか？', '主要都市には複数のインター校があるため、平均して3〜5校を見学しました。', 'parent-considering', '情報収集・学校選び' ),
+	array( '出願から入学までどれくらいかかりましたか？', '多くはローリング入学制ですが、書類審査や面談を含めて2〜3か月程度を想定して動きました。', 'parent-considering', '出願・入学プロセス' ),
+	array( '面接や入学試験ではどんなことを聞かれましたか？', '学習状況や家庭の教育方針、英語力の確認が中心で、適応力を重視する学校が多い印象でした。', 'parent-considering', '出願・入学プロセス' ),
+	array( '受け入れ枠が少ない学年はありましたか？', '低学年や受験に直結する学年は満席になりやすく、人気校ではウェイティングが発生することもありました。', 'parent-considering', '出願・入学プロセス' ),
+	array( 'どの学年での入学・編入がスムーズでしたか？', 'Year1やYear7など区切りの学年は受け入れが比較的スムーズで、新入生向けのサポート体制も整っています。', 'parent-considering', '出願・入学プロセス' ),
+	array( '入学前に準備しておいてよかったことは？', '英語での簡単な自己紹介や教室で使うフレーズに慣れておくと、初期の不安がやわらぎスムーズに適応できました。', 'parent-considering', '出願・入学プロセス' ),
+	array( '英語ができなくても入学できますか？', '多くの校がノンネイティブ受け入れを前提とし、一定の学力があれば英語初級でも入学は可能です。', 'parent-considering', '英語力・学習準備' ),
+	array( '英語が不安な子向けのサポート（EAL）は？', 'EAL担当教員による少人数クラスやプルアウト型が一般的で、通常授業と組み合わせ段階的に英語力を伸ばします。', 'parent-considering', '英語力・学習準備' ),
+	array( '入学前に家庭でしておくとよかった学習準備は？', '英語の基礎語彙に加え、日本語での算数や読解力を固めておくと海外カリキュラムにも適応しやすいです。', 'parent-considering', '英語力・学習準備' ),
+	array( '学校見学やオープンデーでチェックしてよかった点は？', '授業の様子や生徒の表情など「教室の空気感」を確認するようにしました。', 'parent-considering', '学校見学・雰囲気' ),
+	array( '見学時に感じた保護者コミュニティの雰囲気は？', '駐在が多いエリアでは日本人を含む外国人保護者コミュニティが活発で、新規家庭にも情報共有が行われていました。', 'parent-considering', '学校見学・雰囲気' ),
+	array( '初日はどんな気持ちでしたか？', 'ドキドキしましたが先生が笑顔で迎えてくれ、すぐに安心しました。初日からいろんな国の子と話せて新鮮でした。', 'student-considering', '入学前後の気持ち・環境の変化' ),
+	array( '日本の学校との違いで驚いたことは？', 'グループディスカッションが授業の中心で、自分の考えを英語で発表する機会が多かったです。', 'student-considering', '入学前後の気持ち・環境の変化' ),
+	array( '英語に慣れるまでどれくらいかかりましたか？', '授業の指示が分かるまで約3か月、友達との会話がスムーズになるまで半年ほどでした。', 'student-considering', '入学前後の気持ち・環境の変化' ),
+	array( '宿題の量や難しさはどう感じましたか？', '日本の2倍近く感じましたが、クリエイティブな課題が多く考え方が変わりました。', 'student-considering', '学習・英語・先生' ),
+	array( '英語が苦手な子へのサポートはありましたか？', 'EALクラスが週数回あり、少人数で基礎から丁寧に教えてくれました。', 'student-considering', '学習・英語・先生' ),
+);
+foreach ( $faq_qa as $i => $row ) {
+	list( $q, $a, $tgt, $sec ) = $row;
+	$qid = hello_seed_post( 'hello_faq', $q );
+	wp_update_post( array( 'ID' => $qid, 'menu_order' => $i + 1 ) );
+	update_field( 'faq_answer', '<p>' . $a . '</p>', $qid );
+	$tterm = get_term_by( 'slug', $tgt, 'hello_faq_target' );
+	if ( $tterm ) {
+		wp_set_object_terms( $qid, array( (int) $tterm->term_id ), 'hello_faq_target' );
+	}
+	wp_set_object_terms( $qid, array( $sec ), 'hello_faq_section' );
+}
+
+// ---- まとめ記事（固定ページ＋ショートコードで組み立て）----
+$faq_matome = array(
+	'parent-considering'  => array( 'faq-parent-considering', '入学検討中の保護者向け よくある質問まとめ' ),
+	'student-considering' => array( 'faq-student-considering', '入学検討中の生徒向け よくある質問まとめ' ),
+);
+foreach ( $faq_matome as $slug => $info ) {
+	list( $name, $title ) = $info;
+	$found = get_posts( array( 'post_type' => 'page', 'name' => $name, 'posts_per_page' => 1, 'post_status' => 'any', 'fields' => 'ids' ) );
+	$pid   = $found ? $found[0] : wp_insert_post( array( 'post_type' => 'page', 'post_title' => $title, 'post_name' => $name, 'post_status' => 'publish' ) );
+	wp_update_post( array( 'ID' => $pid, 'post_content' => '[hello_faq target="' . $slug . '" heading="' . $title . '"]' ) );
+	if ( function_exists( 'pll_set_post_language' ) && ! pll_get_post_language( $pid ) ) {
+		pll_set_post_language( $pid, 'ja' );
+	}
+}
+$id = null;
 
 // ---- ランキング ----
 $id = hello_seed_post( 'hello_ranking', '【2026年最新版】初年度費用が安い学校まとめ', '学年別の初年度目安費用をもとに、比較しやすいよう整理しました。' );

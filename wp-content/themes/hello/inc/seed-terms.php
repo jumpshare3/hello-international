@@ -65,18 +65,38 @@ function hello_default_terms() {
 			'英語・学習',
 			'学校選び',
 		),
+		// FAQ 対象区分（①〜④）。slug はショートコードで指定するため明示（name => slug）。
+		'hello_faq_target' => array(
+			'保護者が答える：入学検討中の保護者向け' => 'parent-considering',
+			'卒業生が答える：入学検討中の生徒向け'   => 'student-considering',
+			'保護者が答える：在学中の保護者向け'     => 'parent-enrolled',
+			'卒業生が答える：在学中の生徒向け'       => 'student-enrolled',
+		),
+		// FAQ セクション（まとめ内の見出しグループ）
+		'hello_faq_section' => array(
+			'情報収集・学校選び',
+			'出願・入学プロセス',
+			'英語力・学習準備',
+			'学校見学・雰囲気',
+			'入学前後の気持ち・環境の変化',
+			'学習・英語・先生',
+			'友だち・学校生活',
+		),
 	);
 }
 
-/** 初期タームを冪等に投入する */
+/** 初期タームを冪等に投入する。値が連想配列(name=>slug)ならslugを明示指定。 */
 function hello_seed_default_terms() {
 	foreach ( hello_default_terms() as $taxonomy => $terms ) {
 		if ( ! taxonomy_exists( $taxonomy ) ) {
 			continue;
 		}
-		foreach ( $terms as $term ) {
-			if ( ! term_exists( $term, $taxonomy ) ) {
-				wp_insert_term( $term, $taxonomy );
+		$is_assoc = array_keys( $terms ) !== range( 0, count( $terms ) - 1 );
+		foreach ( $terms as $key => $val ) {
+			$name = $is_assoc ? $key : $val;
+			$slug = $is_assoc ? $val : '';
+			if ( ! term_exists( $name, $taxonomy ) ) {
+				wp_insert_term( $name, $taxonomy, $slug ? array( 'slug' => $slug ) : array() );
 			}
 		}
 	}

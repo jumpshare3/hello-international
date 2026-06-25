@@ -1,55 +1,34 @@
 <?php
 /**
- * single-hello_faq.php — よくある質問（アコーディオン）
+ * single-hello_faq.php — よくある質問（1問＝1投稿）
+ * まとめ表示はショートコード [hello_faq] を使う（固定ページ等に設置）。
  */
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
-$audience_labels = array(
-	'parent_considering'  => '保護者が答える：入学検討中の保護者向け',
-	'student_considering' => '卒業生が答える：入学検討中の生徒向け',
-	'parent_enrolled'     => '保護者が答える：在学中の保護者向け',
-	'student_enrolled'    => '卒業生が答える：在学中の生徒向け',
-);
 get_header();
 while ( have_posts() ) :
 	the_post();
-	$audience = get_field( 'faq_audience' );
-	$sections = get_field( 'sections' );
+	$answer  = get_field( 'faq_answer' );
+	$targets = get_the_terms( get_the_ID(), 'hello_faq_target' );
+	$secs    = get_the_terms( get_the_ID(), 'hello_faq_section' );
 	hello_main_open( 'hello-faq' );
 	hello_lang_switcher();
 	?>
 	<header>
 		<span class="hello-badge">よくある質問</span>
-		<h1 class="hello-mag__ttl"><?php the_title(); ?></h1>
 		<div class="hello-meta">
-			<?php if ( $audience && isset( $audience_labels[ $audience ] ) ) : ?>
-				<span><?php echo esc_html( $audience_labels[ $audience ] ); ?></span>
-			<?php endif; ?>
+			<?php if ( $targets && ! is_wp_error( $targets ) ) : ?><span><?php echo esc_html( $targets[0]->name ); ?></span><?php endif; ?>
+			<?php if ( $secs && ! is_wp_error( $secs ) ) : ?><span><?php echo esc_html( $secs[0]->name ); ?></span><?php endif; ?>
 		</div>
+		<h1 class="hello-mag__ttl">Q. <?php the_title(); ?></h1>
 		<?php hello_the_tags(); ?>
 	</header>
 
+	<div class="hello-faq__a hello-faq__single-a"><?php echo wp_kses_post( $answer ); ?></div>
+
 	<?php if ( get_the_content() ) : ?>
 		<div class="post_content"><?php the_content(); ?></div>
-	<?php endif; ?>
-
-	<?php if ( $sections ) : ?>
-		<?php foreach ( $sections as $sec ) : ?>
-			<section class="hello-faq__sec">
-				<?php if ( ! empty( $sec['section_label'] ) ) : ?>
-					<h2 class="hello-faq__sec-ttl"><?php echo esc_html( $sec['section_label'] ); ?></h2>
-				<?php endif; ?>
-				<?php if ( ! empty( $sec['items'] ) ) : ?>
-					<?php foreach ( $sec['items'] as $item ) : ?>
-						<details>
-							<summary><?php echo esc_html( $item['question'] ?? '' ); ?></summary>
-							<div class="hello-faq__a"><?php echo wp_kses_post( $item['answer'] ?? '' ); ?></div>
-						</details>
-					<?php endforeach; ?>
-				<?php endif; ?>
-			</section>
-		<?php endforeach; ?>
 	<?php endif; ?>
 
 	<?php
