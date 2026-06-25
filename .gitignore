@@ -1,6 +1,11 @@
 # === 有償テーマ SWELL 本体（再配布NG・Git管理外）===
 /wp-content/themes/swell/
 
+# === 第三者プラグイン（ACF Pro 等。ライセンス物・Git管理外）===
+# ※自作プラグインを置く場合は個別に !/wp-content/plugins/<name>/ で除外解除する
+/wp-content/plugins/*
+!/wp-content/plugins/.gitkeep
+
 # === WordPress コア・ランタイム ===
 /wp-content/uploads/
 /wp-content/upgrade/

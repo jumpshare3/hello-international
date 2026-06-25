@@ -27,12 +27,18 @@ services:
       WORDPRESS_DB_PASSWORD: wordpress
       WORDPRESS_DB_NAME: wordpress
       WORDPRESS_DEBUG: 1
+      # wp-config.php に追記される定数。ACF Pro ライセンスは .env から注入（Git管理外）
+      WORDPRESS_CONFIG_EXTRA: |
+        if ( getenv('ACF_PRO_LICENSE') ) { define('ACF_PRO_LICENSE', getenv('ACF_PRO_LICENSE')); }
+      ACF_PRO_LICENSE: ${ACF_PRO_LICENSE:-}
     volumes:
       # WordPressコア本体は名前付きボリュームに保持（リポジトリ管理外）
       - wp_core:/var/www/html
       # 開発対象のテーマだけをバインドマウント（ホスト側で編集→即反映）
       - ./wp-content/themes/swell:/var/www/html/wp-content/themes/swell
       - ./wp-content/themes/hello:/var/www/html/wp-content/themes/hello
+      # プラグイン（ACF Pro 等）。第三者プラグインは .gitignore で除外
+      - ./wp-content/plugins:/var/www/html/wp-content/plugins
 
   # 任意: ブラウザからDBを確認したいとき http://localhost:8081
   phpmyadmin:
@@ -47,6 +53,25 @@ services:
       PMA_HOST: db
       PMA_USER: wordpress
       PMA_PASSWORD: wordpress
+
+  # WP-CLI（必要時のみ使用）: docker compose run --rm wpcli <wpコマンド>
+  wpcli:
+    image: wordpress:cli-php8.3
+    depends_on:
+      - db
+      - wordpress
+    environment:
+      WORDPRESS_DB_HOST: db:3306
+      WORDPRESS_DB_USER: wordpress
+      WORDPRESS_DB_PASSWORD: wordpress
+      WORDPRESS_DB_NAME: wordpress
+    volumes:
+      - wp_core:/var/www/html
+      - ./wp-content/themes/swell:/var/www/html/wp-content/themes/swell
+      - ./wp-content/themes/hello:/var/www/html/wp-content/themes/hello
+      - ./wp-content/plugins:/var/www/html/wp-content/plugins
+    profiles:
+      - cli
 
 volumes:
   db_data:
