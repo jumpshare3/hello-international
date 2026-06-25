@@ -108,17 +108,6 @@ endif; ?>
 			<?php hello_magazine_card(); ?>
 		<?php endwhile; ?>
 	</div>
-	<?php
-	$pager = paginate_links( array(
-		'total'   => $q->max_num_pages,
-		'current' => max( 1, (int) get_query_var( 'paged' ) ),
-		'base'    => add_query_arg( 'paged', '%#%', $base_url ),
-		'format'  => '',
-	) );
-	if ( $pager ) {
-		echo '<div class="hello-pager">' . $pager . '</div>'; // phpcs:ignore
-	}
-	?>
 <?php else : ?>
 	<p>該当する記事がありません。</p>
 <?php endif; ?>
