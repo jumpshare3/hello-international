@@ -11,6 +11,7 @@
 
 | ファイル | 内容 |
 |----------|------|
+| [00-scope.md](00-scope.md) | **スコープ境界（WordPressマガジン vs 別システム）最重要** |
 | [01-requirements.md](01-requirements.md) | スライドから読み取ったマガジン要件（ページ構成・各記事種別） |
 | [02-data-model.md](02-data-model.md) | カスタム投稿・タクソノミー・ACFの設計（実装済みスキャフォルド） |
 | [03-questions.md](03-questions.md) | **疑問点・要確認事項**（最重要。回答待ちでブロックされる項目を含む） |

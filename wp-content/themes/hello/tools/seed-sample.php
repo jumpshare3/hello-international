@@ -50,7 +50,7 @@ update_field( 'live_qa', array(
 	array( 'question' => '学費って正直どれくらい？', 'answer_summary' => "日本の私立と比べると高いですが、\n学費以外にかかる費用は想像よりシンプルでした。", 'video_timestamp' => '0:30' ),
 	array( 'question' => '英語力はどのくらい伸びた？', 'answer_summary' => "最初は苦労しましたが、半年〜1年で\n日常会話は問題なくなりました。", 'video_timestamp' => '5:10' ),
 ), $id );
-wp_set_object_terms( $id, array( '学費・コスト満足度' ), 'hello_tag' );
+wp_set_object_terms( $id, array( '費用学費' ), 'hello_tag' );
 wp_set_object_terms( $id, array( '卒業生の保護者' ), 'hello_persona' );
 
 // ---- インタビュー ----
@@ -64,7 +64,7 @@ update_field( 'qa', array(
 	array( 'category' => 'クラス・友人関係', 'question' => '友達づくりはしやすかった？', 'answer' => 'プロジェクトやスポーツで自然に仲良くなれました。多国籍で刺激的でした。' ),
 	array( 'category' => '将来・進学', 'question' => '進路についてのサポートは？', 'answer' => 'カウンセラーが個別に相談に乗ってくれ、出願準備も手厚かったです。' ),
 ), $id );
-wp_set_object_terms( $id, array( '学校生活のリアル' ), 'hello_tag' );
+wp_set_object_terms( $id, array( '学校生活' ), 'hello_tag' );
 wp_set_object_terms( $id, array( '卒業生' ), 'hello_persona' );
 
 // ---- よくある質問 ----
@@ -85,7 +85,7 @@ update_field( 'sections', array(
 		),
 	),
 ), $id );
-wp_set_object_terms( $id, array( 'その他・自由記述' ), 'hello_tag' );
+wp_set_object_terms( $id, array( '入学前の準備' ), 'hello_tag' );
 wp_set_object_terms( $id, array( '入学を検討している保護者' ), 'hello_persona' );
 
 // ---- ランキング ----
@@ -101,7 +101,7 @@ update_field( 'entries', array(
 		'rating_learning' => 4.2, 'rating_school_life' => 4.1, 'rating_parent_support' => 4.5, 'rating_fee_satisfaction' => 3.8, 'rating_overall' => 3.18, 'features' => 'IB・STEM教育' ),
 ), $id );
 update_field( 'footer_note', '本ランキングは各校の公開情報をもとに、初年度目安費用で整理しています。', $id );
-wp_set_object_terms( $id, array( '学費・コスト満足度' ), 'hello_tag' );
+wp_set_object_terms( $id, array( '費用学費' ), 'hello_tag' );
 
 // ---- エージェント比較 ----
 $id = hello_seed_post( 'hello_agent', 'マレーシア教育移住エージェント A社', '教育移住・インター進学に強い現地日系エージェントです。' );
@@ -143,7 +143,7 @@ update_field( 'official_url', 'https://example.com/', $id );
 wp_set_object_terms( $id, array( 'イギリス式（British）', 'アメリカ式（US）', 'IB（国際バカロレア）', 'オーストラリア式（Australian）' ), 'hello_curriculum' );
 wp_set_object_terms( $id, array( 'KL中心部', 'モントキアラ／スリハルタマス', 'バンサー／KLセントラル' ), 'hello_region' );
 wp_set_object_terms( $id, array( 'RM20,000以下', 'RM20,001〜35,000' ), 'hello_price' );
-wp_set_object_terms( $id, array( 'その他・自由記述' ), 'hello_tag' );
+wp_set_object_terms( $id, array( '学校選び' ), 'hello_tag' );
 
 // マガジンTOPはサイトのトップ（front-page.php）が担うため、固定ページは作らない。
 echo "seed done.\n";
