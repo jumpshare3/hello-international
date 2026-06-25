@@ -320,4 +320,21 @@ if ( $int && function_exists( 'update_field' ) ) {
 	update_field( 'recommend_articles', $demo, $int[0] );
 }
 
+// ---- 投稿日をランダム化（TOPが特定種別に偏らないよう、種別を日付でシャッフル）----
+$all = get_posts( array(
+	'post_type'      => array( 'hello_article', 'hello_live', 'hello_interview', 'hello_faq', 'hello_ranking', 'hello_agent' ),
+	'post_status'    => 'publish',
+	'posts_per_page' => -1,
+	'fields'         => 'ids',
+) );
+foreach ( $all as $pid ) {
+	$ts   = time() - rand( 0, 180 * 24 * 3600 ) - rand( 0, 86399 ); // 直近180日内のランダム日時
+	$date = date( 'Y-m-d H:i:s', $ts );
+	wp_update_post( array(
+		'ID'            => $pid,
+		'post_date'     => $date,
+		'post_date_gmt' => get_gmt_from_date( $date ),
+	) );
+}
+
 echo "seed done.\n";
