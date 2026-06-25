@@ -15,6 +15,7 @@ add_action( 'acf/init', function () {
 		return;
 	}
 	$cpts = array(
+		'hello_school'    => '学校マスタ',
 		'hello_article'   => 'マガジン記事',
 		'hello_live'      => 'YouTube LIVE',
 		'hello_interview' => 'インタビュー',

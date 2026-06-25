@@ -36,6 +36,27 @@ function hello_seed_post( $type, $title, $content = '' ) {
 	return $id;
 }
 
+// ============ 学校マスタ（FMTシートの5校）============
+$school_data = array(
+	// slug, name_ja, name_en, website_url, region, curriculum
+	array( 'garden-intl', 'ガーデン・インターナショナルスクール', 'Garden International School', 'https://www.gardenschool.edu.my', 'モントキアラ／スリハルタマス', 'イギリス式（British）' ),
+	array( 'iskl', 'インターナショナル・スクール・オブ・クアラルンプール', 'International School of Kuala Lumpur (ISKL)', 'https://www.iskl.edu.my', 'KL中心部', 'アメリカ式（US）' ),
+	array( 'mkis', 'モンキアラ・インターナショナルスクール', "Mont'Kiara International School", 'https://www.mkis.edu.my', 'モントキアラ／スリハルタマス', 'アメリカ式（US）' ),
+	array( 'alice-smith', 'アリス・スミス・スクール', 'Alice Smith School', 'https://www.alice-smith.edu.my', 'KL中心部', 'イギリス式（British）' ),
+	array( 'igbis', 'IGB インターナショナルスクール', 'IGB International School (IGBIS)', 'https://www.igbis.edu.my', 'モントキアラ／スリハルタマス', 'IB（国際バカロレア）' ),
+);
+$school_map = array();
+foreach ( $school_data as $sd ) {
+	list( $slug, $ja, $en, $url, $region, $curr ) = $sd;
+	$sid = hello_seed_post( 'hello_school', $ja );
+	update_field( 'school_name_en', $en, $sid );
+	update_field( 'school_slug', $slug, $sid );
+	update_field( 'website_url', $url, $sid );
+	wp_set_object_terms( $sid, array( $region ), 'hello_region' );
+	wp_set_object_terms( $sid, array( $curr ), 'hello_curriculum' );
+	$school_map[ $slug ] = $sid;
+}
+
 // ---- YouTube LIVE ----
 $id = hello_seed_post( 'hello_live', '卒ママが本音で回答｜CDEインターナショナルスクール', '実際に通ったからこそ分かるリアルな話を伺いました。' );
 update_field( 'youtube_url', 'https://www.youtube.com/watch?v=dQw4w9WgXcQ', $id );
@@ -126,11 +147,14 @@ update_field( 'cond_area', 'マレーシア', $id );
 update_field( 'cond_fee_basis', '初年度目安（入学金含む）', $id );
 update_field( 'cond_grade', 'Nursery', $id );
 update_field( 'intro', '学年別の初年度目安費用をもとに整理しました。学年や為替により変動する場合があります。', $id );
+// ★学校マスタから選択（学校名/URL/エリア/カリキュラムは自動補完）
 update_field( 'entries', array(
-	array( 'rank' => 1, 'school_name' => 'オーストラリア・インターナショナルスクール', 'school_url' => 'https://example.com/', 'area' => 'KL中心部', 'curriculum' => 'イギリス式', 'price' => 'RM20,000以下',
+	array( 'rank' => 1, 'school' => $school_map['garden-intl'], 'price' => 'RM50,001以上',
 		'rating_learning' => 4.4, 'rating_school_life' => 4.3, 'rating_parent_support' => 4.6, 'rating_fee_satisfaction' => 3.9, 'rating_overall' => 3.26, 'features' => 'STEM教育・IB対応' ),
-	array( 'rank' => 2, 'school_name' => 'ABCインターナショナルスクール', 'area' => 'KL中心部', 'curriculum' => 'イギリス式', 'price' => 'RM35,000〜',
+	array( 'rank' => 2, 'school' => $school_map['mkis'], 'price' => 'RM35,001〜50,000',
 		'rating_learning' => 4.2, 'rating_school_life' => 4.1, 'rating_parent_support' => 4.5, 'rating_fee_satisfaction' => 3.8, 'rating_overall' => 3.18, 'features' => 'IB・STEM教育' ),
+	array( 'rank' => 3, 'school' => $school_map['alice-smith'], 'price' => 'RM35,001〜50,000',
+		'rating_learning' => 4.3, 'rating_school_life' => 4.2, 'rating_parent_support' => 4.4, 'rating_fee_satisfaction' => 3.7, 'rating_overall' => 3.15, 'features' => '英国式・進学実績' ),
 ), $id );
 update_field( 'footer_note', '本ランキングは各校の公開情報をもとに、初年度目安費用で整理しています。', $id );
 wp_set_object_terms( $id, array( '費用学費' ), 'hello_tag' );

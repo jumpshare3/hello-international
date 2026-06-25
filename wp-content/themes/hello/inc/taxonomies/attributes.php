@@ -17,7 +17,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 add_action( 'init', function () {
 
-	$shared = array( 'hello_agent' ); // 将来 'school' を追加予定
+	$shared = array( 'hello_agent', 'hello_school' ); // エージェント＋学校マスタで共有
 
 	register_taxonomy( 'hello_curriculum', $shared, array(
 		'labels'            => array( 'name' => 'カリキュラム', 'singular_name' => 'カリキュラム' ),

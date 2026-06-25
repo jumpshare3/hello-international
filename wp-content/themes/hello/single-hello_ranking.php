@@ -36,25 +36,26 @@ while ( have_posts() ) :
 	<?php if ( $entries ) : ?>
 		<div class="hello-rank__list">
 			<?php foreach ( $entries as $e ) :
-				$photo = $e['photo'] ?? null; ?>
+				$photo = $e['photo'] ?? null;
+					$s = hello_ranking_entry_school( $e ); // マスタ選択 or 手入力を解決 ?>
 				<div class="hello-card">
 					<div class="hello-card__rank"><?php echo esc_html( $e['rank'] ?? '' ); ?>位</div>
 					<div>
 						<?php if ( $photo && ! empty( $photo['sizes']['medium'] ) ) : ?>
-							<div class="hello-card__photo"><img src="<?php echo esc_url( $photo['sizes']['medium'] ); ?>" alt="<?php echo esc_attr( $e['school_name'] ?? '' ); ?>" width="240"></div>
+							<div class="hello-card__photo"><img src="<?php echo esc_url( $photo['sizes']['medium'] ); ?>" alt="<?php echo esc_attr( $s['name'] ); ?>" width="240"></div>
 						<?php endif; ?>
 						<p class="hello-card__name">
-							<?php echo esc_html( $e['school_name'] ?? '' ); ?>
-							<?php if ( ! empty( $e['school_url'] ) ) : ?>
-								<a class="hello-extlink" href="<?php echo esc_url( $e['school_url'] ); ?>" target="_blank" rel="noopener nofollow"
-									title="公式サイトを開く" aria-label="<?php echo esc_attr( ( $e['school_name'] ?? '' ) . ' の公式サイトを開く（外部リンク）' ); ?>">
+							<?php echo esc_html( $s['name'] ); ?>
+							<?php if ( ! empty( $s['url'] ) ) : ?>
+								<a class="hello-extlink" href="<?php echo esc_url( $s['url'] ); ?>" target="_blank" rel="noopener nofollow"
+									title="公式サイトを開く" aria-label="<?php echo esc_attr( ( $s['name'] ) . ' の公式サイトを開く（外部リンク）' ); ?>">
 									<span aria-hidden="true">↗</span>
 								</a>
 							<?php endif; ?>
 						</p>
 						<div class="hello-card__attr">
-							<?php if ( ! empty( $e['area'] ) ) : ?><span>🏙️ <?php echo esc_html( $e['area'] ); ?></span><?php endif; ?>
-							<?php if ( ! empty( $e['curriculum'] ) ) : ?><span>📘 <?php echo esc_html( $e['curriculum'] ); ?></span><?php endif; ?>
+							<?php if ( ! empty( $s['area'] ) ) : ?><span>🏙️ <?php echo esc_html( $s['area'] ); ?></span><?php endif; ?>
+							<?php if ( ! empty( $s['curriculum'] ) ) : ?><span>📘 <?php echo esc_html( $s['curriculum'] ); ?></span><?php endif; ?>
 							<?php if ( ! empty( $e['price'] ) ) : ?><span>💰 <?php echo esc_html( $e['price'] ); ?></span><?php endif; ?>
 						</div>
 						<div class="hello-card__ratings">

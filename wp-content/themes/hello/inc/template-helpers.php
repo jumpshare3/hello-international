@@ -208,6 +208,35 @@ function hello_magazine_card( $post_id = null ) {
 }
 
 /**
+ * ランキングのエントリ1件から、学校の表示データを解決する。
+ * 学校マスタ(hello_school)が選択されていればマスタ値を、なければ手入力値を使う。
+ * 返り値: array(name, url, area, curriculum)
+ */
+function hello_ranking_entry_school( $e ) {
+	$sid = isset( $e['school'] ) ? (int) $e['school'] : 0;
+	if ( $sid && 'hello_school' === get_post_type( $sid ) ) {
+		$area = '';
+		$ar   = get_the_terms( $sid, 'hello_region' );
+		if ( $ar && ! is_wp_error( $ar ) ) { $area = $ar[0]->name; }
+		$curr = '';
+		$cr   = get_the_terms( $sid, 'hello_curriculum' );
+		if ( $cr && ! is_wp_error( $cr ) ) { $curr = $cr[0]->name; }
+		return array(
+			'name'       => get_the_title( $sid ),
+			'url'        => function_exists( 'get_field' ) ? (string) get_field( 'website_url', $sid ) : '',
+			'area'       => $area,
+			'curriculum' => $curr,
+		);
+	}
+	return array(
+		'name'       => $e['school_name'] ?? '',
+		'url'        => $e['school_url'] ?? '',
+		'area'       => $e['area'] ?? '',
+		'curriculum' => $e['curriculum'] ?? '',
+	);
+}
+
+/**
  * タクソノミーのマスタ一覧をチェックリスト表示（✅=付与済み / ☐=未付与）。
  * ワイヤーの「得意な価格帯／カリキュラム／強い地域」のチェック表示に対応。
  */
