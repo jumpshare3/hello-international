@@ -17,6 +17,7 @@
 | [04-master-lists.md](04-master-lists.md) | タグマスタ・表記統一（CMSスライド由来。初期ターム投入済み） |
 | [05-translation.md](05-translation.md) | 多言語・翻訳戦略とマガジンの方針 |
 | [06-deploy.md](06-deploy.md) | 本番デプロイ記録（プラグイン/言語/.htaccess 等） |
+| [07-wireframe-checklist.md](07-wireframe-checklist.md) | **ワイヤー差分チェックリスト（社内QA・修正後必須）** |
 
 ## 重要な前提・注意
 
