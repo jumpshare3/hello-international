@@ -76,6 +76,23 @@
 .hello-info dt { color:#6b7280; }
 .hello-cta { display:inline-block; margin-top:1em; background:var(--hello-accent); color:#fff; text-decoration:none; padding:.6em 1.4em; border-radius:999px; font-weight:700; }
 
+/* ページネーション（横並び） */
+.hello-mag .pagination,
+.hello-mag .hello-pager { margin:1.8em 0; }
+.hello-mag .pagination .nav-links,
+.hello-mag .hello-pager {
+  display:flex; flex-wrap:wrap; gap:.45em; justify-content:center; align-items:center;
+}
+.hello-mag .page-numbers {
+  display:inline-flex; align-items:center; justify-content:center;
+  flex:0 0 auto; width:auto; min-width:2.6em; padding:.55em .9em;
+  border:1px solid var(--hello-line); border-radius:8px; text-decoration:none;
+  color:var(--hello-ink); background:#fff; line-height:1;
+}
+.hello-mag .page-numbers.current { background:var(--hello-accent); color:#fff; border-color:var(--hello-accent); }
+.hello-mag .page-numbers.dots { border:0; background:none; min-width:1.2em; padding:.55em .2em; }
+.hello-mag a.page-numbers:hover { border-color:var(--hello-accent); color:var(--hello-accent); }
+
 /* 別CTA：知って得する Helo! マガジン（おすすめ記事） */
 .hello-reco { margin:2em 0 0; padding:1.4em 1em; background:#fffbeb; border:1px solid #fde68a; border-radius:12px; text-align:center; }
 .hello-reco__lead { font-weight:700; line-height:1.7; margin:0 0 .8em; }
