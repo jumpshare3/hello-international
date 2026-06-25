@@ -76,18 +76,38 @@
 .hello-info dt { color:#6b7280; }
 .hello-cta { display:inline-block; margin-top:1em; background:var(--hello-accent); color:#fff; text-decoration:none; padding:.6em 1.4em; border-radius:999px; font-weight:700; }
 
-/* TOP / アーカイブ */
+/* TOP ヒーロー */
+.hello-hero { text-align:center; padding:1.4em 0 .6em; }
+.hello-hero__ttl { font-size:1.8rem; font-weight:800; margin:0 0 .3em; letter-spacing:.02em; }
+.hello-hero__lead { color:#6b7280; font-size:.92rem; line-height:1.7; margin:0; }
+
+/* タブ */
 .hello-top__tabs { display:flex; gap:.4em; flex-wrap:wrap; margin:1em 0; }
-.hello-top__tab { font-size:.85rem; padding:.4em 1em; border:1px solid var(--hello-line); border-radius:999px; text-decoration:none; color:var(--hello-ink); }
+.hello-top__tab { font-size:.85rem; padding:.4em 1em; border:1px solid var(--hello-line); border-radius:999px; text-decoration:none; color:var(--hello-ink); transition:.15s; }
+.hello-top__tab:hover { border-color:var(--hello-accent); color:var(--hello-accent); }
 .hello-top__tab.is-current { background:var(--hello-accent); color:#fff; border-color:var(--hello-accent); }
-.hello-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(260px,1fr)); gap:1.2em; margin:1.2em 0; }
-.hello-acard { border:1px solid var(--hello-line); border-radius:12px; overflow:hidden; text-decoration:none; color:inherit; display:flex; flex-direction:column; }
-.hello-acard__thumb { aspect-ratio:16/9; background:#f3f4f6; object-fit:cover; width:100%; }
-.hello-acard__body { padding:.8em 1em 1em; }
-.hello-acard__type { font-size:.72rem; color:var(--hello-accent); font-weight:700; }
-.hello-acard__ttl { font-size:1rem; font-weight:700; margin:.2em 0; }
+
+/* カードグリッド */
+.hello-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(280px,1fr)); gap:1.2em; margin:1.2em 0; }
+.hello-acard { border:1px solid var(--hello-line); border-radius:14px; overflow:hidden; text-decoration:none; color:inherit; display:flex; flex-direction:column; background:#fff; transition:.18s; }
+.hello-acard:hover { box-shadow:0 6px 20px rgba(0,0,0,.08); transform:translateY(-2px); }
+.hello-acard__thumb { aspect-ratio:16/9; background:#f3f4f6 center/cover no-repeat; width:100%; display:block; }
+.hello-acard__thumb.-ph { display:flex; align-items:center; justify-content:center; font-size:2.4rem; opacity:.5; }
+.hello-acard__body { padding:.9em 1.1em 1.1em; display:flex; flex-direction:column; gap:.35em; }
+/* 種別バッジ（ワイヤー: [ YouTube LIVE ] 等） */
+.hello-acard__type { align-self:flex-start; font-size:.72rem; font-weight:700; color:#fff; background:var(--hello-accent); padding:.18em .7em; border-radius:6px; }
+.hello-acard__type.-hello_live { background:#ef4444; }
+.hello-acard__type.-hello_interview { background:#0ea5a4; }
+.hello-acard__type.-hello_faq { background:#6366f1; }
+.hello-acard__type.-hello_ranking { background:#f59e0b; }
+.hello-acard__type.-hello_agent { background:#0e7490; }
+.hello-acard__meta { font-size:.78rem; color:#6b7280; }
+.hello-acard__ttl { font-size:1.02rem; font-weight:700; line-height:1.45; }
+.hello-acard__tags { display:flex; gap:.4em; flex-wrap:wrap; margin-top:.2em; }
+.hello-acard__tags span { font-size:.72rem; color:var(--hello-accent); }
 
 @media (max-width:600px){
   .hello-card { grid-template-columns:1fr; }
   .hello-card__rank { text-align:left; }
+  .hello-hero__ttl { font-size:1.5rem; }
 }

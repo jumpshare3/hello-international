@@ -141,24 +141,65 @@ function hello_magazine_tabs( $current = 'all' ) {
 }
 
 /**
- * 一覧用カード（ループ内で呼ぶ）。
+ * カードのメタ行（話者｜学校 等）を記事種別ごとに組み立てる。
+ * ワイヤー: 「卒ママ｜ABCスクール」のような行。
+ */
+function hello_card_meta( $post_id ) {
+	$pt    = get_post_type( $post_id );
+	$parts = array();
+	switch ( $pt ) {
+		case 'hello_interview':
+			if ( $v = get_field( 'position', $post_id ) ) { $parts[] = $v; }
+			if ( $v = get_field( 'school_name', $post_id ) ) { $parts[] = $v; }
+			break;
+		case 'hello_live':
+			$persona = get_the_terms( $post_id, 'hello_persona' );
+			if ( $persona && ! is_wp_error( $persona ) ) { $parts[] = $persona[0]->name; }
+			if ( $v = get_field( 'live_date', $post_id ) ) { $parts[] = $v; }
+			break;
+		case 'hello_ranking':
+			if ( $v = get_field( 'cond_area', $post_id ) ) { $parts[] = $v; }
+			if ( $v = get_field( 'cond_grade', $post_id ) ) { $parts[] = $v; }
+			break;
+		case 'hello_agent':
+			if ( $v = get_field( 'type_stance', $post_id ) ) { $parts[] = $v; }
+			break;
+		case 'hello_faq':
+			$persona = get_the_terms( $post_id, 'hello_persona' );
+			if ( $persona && ! is_wp_error( $persona ) ) { $parts[] = $persona[0]->name; }
+			break;
+	}
+	return implode( '｜', array_filter( $parts ) );
+}
+
+/**
+ * 一覧用カード（ワイヤー準拠）：種別バッジ／話者｜学校／タイトル／#タグ。
+ * ループ内 or 第1引数に投稿IDを渡して呼ぶ。
  */
 function hello_magazine_card( $post_id = null ) {
 	$post_id = $post_id ?: get_the_ID();
 	$types   = hello_magazine_post_types();
 	$pt      = get_post_type( $post_id );
-	$label   = isset( $types[ $pt ] ) ? $types[ $pt ]['icon'] . ' ' . $types[ $pt ]['label'] : get_post_type( $post_id );
+	$meta    = hello_card_meta( $post_id );
 	$thumb   = get_the_post_thumbnail_url( $post_id, 'medium' );
+	$label   = isset( $types[ $pt ] ) ? $types[ $pt ]['icon'] . ' ' . $types[ $pt ]['label'] : $pt;
+	$tags    = get_the_terms( $post_id, 'hello_tag' );
 	?>
 	<a class="hello-acard" href="<?php echo esc_url( get_permalink( $post_id ) ); ?>">
 		<?php if ( $thumb ) : ?>
-			<img class="hello-acard__thumb" src="<?php echo esc_url( $thumb ); ?>" alt="" loading="lazy">
+			<span class="hello-acard__thumb" style="background-image:url('<?php echo esc_url( $thumb ); ?>')"></span>
 		<?php else : ?>
-			<span class="hello-acard__thumb"></span>
+			<span class="hello-acard__thumb -ph" data-pt="<?php echo esc_attr( $pt ); ?>"><?php echo isset( $types[ $pt ] ) ? esc_html( $types[ $pt ]['icon'] ) : ''; ?></span>
 		<?php endif; ?>
 		<span class="hello-acard__body">
-			<span class="hello-acard__type"><?php echo esc_html( $label ); ?></span>
+			<span class="hello-acard__type -<?php echo esc_attr( $pt ); ?>"><?php echo esc_html( $label ); ?></span>
+			<?php if ( $meta ) : ?><span class="hello-acard__meta"><?php echo esc_html( $meta ); ?></span><?php endif; ?>
 			<span class="hello-acard__ttl"><?php echo esc_html( get_the_title( $post_id ) ); ?></span>
+			<?php if ( $tags && ! is_wp_error( $tags ) ) : ?>
+				<span class="hello-acard__tags">
+					<?php foreach ( array_slice( $tags, 0, 3 ) as $t ) : ?><span>#<?php echo esc_html( $t->name ); ?></span><?php endforeach; ?>
+				</span>
+			<?php endif; ?>
 		</span>
 	</a>
 	<?php

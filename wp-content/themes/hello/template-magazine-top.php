@@ -38,12 +38,32 @@ get_header();
 hello_main_open( 'hello-top' );
 hello_lang_switcher();
 ?>
-<header>
-	<h1 class="hello-mag__ttl"><?php the_title(); ?></h1>
-	<p>マレーシア教育移住・インターナショナルスクール。リアルな体験談・YouTube LIVE・Q&A・学校ランキング。</p>
+<header class="hello-hero">
+	<h1 class="hello-hero__ttl">Hello! Magazine</h1>
+	<p class="hello-hero__lead">マレーシア教育移住・インターナショナルスクール。<br>入学前から在学中まで役立つ、リアルな体験談・YouTube LIVE・Q&A・学校ランキング。</p>
 </header>
 
+<?php // 注目記事（フィルタなしのTOP時のみ・最新3件） ?>
+<?php if ( 'all' === $cur_type && ! $cur_tag ) :
+	$featured = new WP_Query( array(
+		'post_type'      => array_keys( $types ),
+		'post_status'    => 'publish',
+		'posts_per_page' => 3,
+		'no_found_rows'  => true,
+	) );
+	if ( $featured->have_posts() ) : ?>
+		<section class="hello-sec">
+			<h2 class="hello-sec__ttl">注目の記事</h2>
+			<div class="hello-grid">
+				<?php while ( $featured->have_posts() ) : $featured->the_post(); hello_magazine_card(); endwhile; ?>
+			</div>
+		</section>
+		<?php wp_reset_postdata();
+	endif;
+endif; ?>
+
 <?php // 種別タブ（このページ内で絞り込み） ?>
+<h2 class="hello-sec__ttl">記事一覧</h2>
 <nav class="hello-top__tabs" aria-label="記事種別">
 	<?php
 	$tab_url = $cur_tag ? add_query_arg( 'mag_tag', $cur_tag, $base_url ) : $base_url;
