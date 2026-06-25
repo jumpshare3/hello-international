@@ -54,6 +54,10 @@ wp-content/themes/hello/
 | プラグイン | バージョン | 用途 | Git管理 |
 |-----------|-----------|------|:--:|
 | Advanced Custom Fields PRO | 6.8.4 | 構造化フィールド（繰り返し/画像/真偽 等） | 除外（有償・.gitignore） |
+| Polylang | 3.8.5 | 多言語（手動翻訳・言語別記事） | 除外（第三者・.gitignore） |
+
+- Polylang は5言語（ja既定/en/zh/ko/ms）。翻訳対象のCPT/タクソノミーは
+  `inc/polylang.php` でコード化（詳細 [05-translation.md](05-translation.md)）。
 
 - ACF Pro ライセンス（developer / order 106825）は `.env` の `ACF_PRO_LICENSE` から
   `WORDPRESS_CONFIG_EXTRA` 経由で `define('ACF_PRO_LICENSE', ...)` として注入。
