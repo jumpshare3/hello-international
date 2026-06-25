@@ -10,13 +10,33 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
+/**
+ * サイトのトップ（マガジンTOP）では、SWELL のフロント用パーツ
+ * （メインビジュアル / 記事スライダー / ピックアップバナー）を出さない。
+ * SWELL は 'wp'(優先度2) で mv/post_slider を有効化するため、その後で無効化する。
+ */
+add_action( 'wp', function () {
+	if ( is_front_page() && class_exists( 'SWELL_Theme' ) ) {
+		SWELL_Theme::set_use( 'mv', false );
+		SWELL_Theme::set_use( 'post_slider', false );
+	}
+}, 5 );
+add_filter( 'swell_is_show_pickup_banner', function ( $is_show ) {
+	return is_front_page() ? false : $is_show;
+} );
+add_filter( 'swell_is_show_ttltop', function ( $is_show ) {
+	return is_front_page() ? false : $is_show;
+} );
+
 add_filter( 'swell_is_show_sidebar', function ( $is_show ) {
 	$cpts = array( 'hello_live', 'hello_interview', 'hello_faq', 'hello_ranking', 'hello_agent' );
 
-	if ( is_singular( $cpts ) || is_post_type_archive( $cpts ) ) {
+	// サイトのトップ（マガジンTOP）
+	if ( is_front_page() ) {
 		return false;
 	}
-	if ( is_page_template( 'template-magazine-top.php' ) ) {
+	// マガジンの各CPT（single / archive）
+	if ( is_singular( $cpts ) || is_post_type_archive( $cpts ) ) {
 		return false;
 	}
 	return $is_show;

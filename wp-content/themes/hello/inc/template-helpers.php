@@ -115,11 +115,10 @@ function hello_the_tags( $post_id = null ) {
 }
 
 /**
- * マガジンTOP（タグ→種別フィルタ）の固定ページURL。slug 'magazine' を既定とする。
+ * マガジンTOP（タグ→種別フィルタ）のURL。サイトのトップ（/）がマガジンTOP。
  */
 function hello_magazine_top_url() {
-	$page = get_page_by_path( 'magazine' );
-	return $page ? get_permalink( $page ) : home_url( '/magazine/' );
+	return home_url( '/' );
 }
 
 /**

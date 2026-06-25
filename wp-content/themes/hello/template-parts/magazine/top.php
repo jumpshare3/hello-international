@@ -1,30 +1,28 @@
 <?php
 /**
- * Template Name: Hello! Magazine TOP
- *
- * マガジンTOP。全記事種別を横断表示し、
- *  - 種別タブ（すべて＋各CPT）… ?mag_type=
- *  - タグ（hello_tag）… ?mag_tag=
- * で絞り込む。タグを押すとその種別/トピックの記事に絞られる。
+ * マガジンTOP 本体（共通パーツ）。
+ * フロントページ(front-page.php)と固定ページテンプレート(template-magazine-top.php)の両方から使う。
+ *   - 種別タブ（?mag_type）＋ タグ絞り込み（?mag_tag, hello_tag）
  */
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-$types     = hello_magazine_post_types();
-$cur_type  = isset( $_GET['mag_type'] ) ? sanitize_key( $_GET['mag_type'] ) : 'all';
-$cur_tag   = isset( $_GET['mag_tag'] ) ? sanitize_title( wp_unslash( $_GET['mag_tag'] ) ) : '';
-$base_url  = get_permalink();
+$types    = hello_magazine_post_types();
+$cur_type = isset( $_GET['mag_type'] ) ? sanitize_key( $_GET['mag_type'] ) : 'all';
+$cur_tag  = isset( $_GET['mag_tag'] ) ? sanitize_title( wp_unslash( $_GET['mag_tag'] ) ) : '';
+// フロントページなら home、固定ページなら自身のURL
+$base_url = ( is_front_page() ) ? home_url( '/' ) : get_permalink();
 
 if ( 'all' !== $cur_type && ! isset( $types[ $cur_type ] ) ) {
 	$cur_type = 'all';
 }
-$query_pt  = 'all' === $cur_type ? array_keys( $types ) : array( $cur_type );
+$query_pt = 'all' === $cur_type ? array_keys( $types ) : array( $cur_type );
 
 $args = array(
 	'post_type'      => $query_pt,
 	'post_status'    => 'publish',
-	'posts_per_page' => 10, // 10件表示（要件）。ページネーションで全件。
+	'posts_per_page' => 10,
 	'paged'          => max( 1, (int) get_query_var( 'paged' ) ),
 );
 if ( $cur_tag ) {
@@ -34,7 +32,6 @@ if ( $cur_tag ) {
 }
 $q = new WP_Query( $args );
 
-get_header();
 hello_main_open( 'hello-top' );
 hello_lang_switcher();
 ?>
@@ -43,7 +40,6 @@ hello_lang_switcher();
 	<p class="hello-hero__lead">マレーシア教育移住・インターナショナルスクール。<br>入学前から在学中まで役立つ、リアルな体験談・YouTube LIVE・Q&A・学校ランキング。</p>
 </header>
 
-<?php // 注目記事（フィルタなしのTOP時のみ・最新3件） ?>
 <?php if ( 'all' === $cur_type && ! $cur_tag ) :
 	$featured = new WP_Query( array(
 		'post_type'      => array_keys( $types ),
@@ -62,7 +58,6 @@ hello_lang_switcher();
 	endif;
 endif; ?>
 
-<?php // 種別タブ（このページ内で絞り込み） ?>
 <h2 class="hello-sec__ttl">記事一覧</h2>
 <nav class="hello-top__tabs" aria-label="記事種別">
 	<?php
@@ -79,7 +74,6 @@ endif; ?>
 	?>
 </nav>
 
-<?php // タグ絞り込み（hello_tag） ?>
 <?php $tags = get_terms( array( 'taxonomy' => 'hello_tag', 'hide_empty' => false ) ); ?>
 <?php if ( ! empty( $tags ) && ! is_wp_error( $tags ) ) : ?>
 	<div class="hello-tags">
@@ -109,7 +103,7 @@ endif; ?>
 	echo paginate_links( array(
 		'total'   => $q->max_num_pages,
 		'current' => max( 1, (int) get_query_var( 'paged' ) ),
-		'base'    => add_query_arg( 'paged', '%#%' ),
+		'base'    => add_query_arg( 'paged', '%#%', $base_url ),
 		'format'  => '',
 	) );
 	?>
@@ -120,4 +114,3 @@ endif; ?>
 <?php
 wp_reset_postdata();
 hello_main_close();
-get_footer();

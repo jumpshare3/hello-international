@@ -135,21 +135,5 @@ wp_set_object_terms( $id, array( 'KL中心部' ), 'hello_region' );
 wp_set_object_terms( $id, array( 'RM20,001〜35,000' ), 'hello_price' );
 wp_set_object_terms( $id, array( 'その他・自由記述' ), 'hello_tag' );
 
-// ---- マガジンTOP 固定ページ ----
-$top = get_page_by_path( 'magazine' );
-if ( ! $top ) {
-	$top_id = wp_insert_post( array(
-		'post_type'   => 'page',
-		'post_title'  => 'Hello! Magazine',
-		'post_name'   => 'magazine',
-		'post_status' => 'publish',
-	) );
-} else {
-	$top_id = $top->ID;
-}
-update_post_meta( $top_id, '_wp_page_template', 'template-magazine-top.php' );
-if ( function_exists( 'pll_set_post_language' ) ) {
-	pll_set_post_language( $top_id, 'ja' );
-}
-
-echo "seed done. magazine top page id={$top_id}\n";
+// マガジンTOPはサイトのトップ（front-page.php）が担うため、固定ページは作らない。
+echo "seed done.\n";

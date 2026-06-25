@@ -39,21 +39,16 @@ foreach ( glob( "{$hello_inc}/*.php" ) ?: array() as $file ) {
 }
 
 /**
- * 子テーマ style.css の読み込み（親テーマCSSの後ろ）。
+ * CSSの読み込み。
+ * バージョンは「ファイル更新時刻(filemtime)」を使い、ファイルを更新したら
+ * 自動でキャッシュが切れる（本番でも編集が確実に反映される）ようにする。
  */
 add_action( 'wp_enqueue_scripts', function () {
-	$ver = ( defined( 'WP_DEBUG' ) && WP_DEBUG ) ? (string) time() : wp_get_theme()->get( 'Version' );
-	wp_enqueue_style(
-		'hello-child',
-		HELLO_THEME_URI . '/style.css',
-		array(),
-		$ver
-	);
-	// マガジン表示用スタイル
-	wp_enqueue_style(
-		'hello-magazine',
-		HELLO_THEME_URI . '/assets/css/magazine.css',
-		array( 'hello-child' ),
-		$ver
-	);
+	$style_path = HELLO_THEME_DIR . '/style.css';
+	$mag_path   = HELLO_THEME_DIR . '/assets/css/magazine.css';
+	$style_ver  = file_exists( $style_path ) ? (string) filemtime( $style_path ) : wp_get_theme()->get( 'Version' );
+	$mag_ver    = file_exists( $mag_path ) ? (string) filemtime( $mag_path ) : $style_ver;
+
+	wp_enqueue_style( 'hello-child', HELLO_THEME_URI . '/style.css', array(), $style_ver );
+	wp_enqueue_style( 'hello-magazine', HELLO_THEME_URI . '/assets/css/magazine.css', array( 'hello-child' ), $mag_ver );
 }, 11 );
