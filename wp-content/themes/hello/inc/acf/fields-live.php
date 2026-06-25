@@ -57,11 +57,11 @@ acf_add_local_field_group( array(
 				array( 'key' => 'field_hello_live_ch_time', 'label' => '開始位置（秒 または mm:ss）', 'name' => 'timestamp', 'type' => 'text', 'instructions' => '例: 125 または 2:05。再生位置・サムネ生成に利用予定（要件メモ参照）' ),
 			),
 		),
-		// 要約Q&A
+		// 要約Q&A（フィールド名はCPT間の衝突を避けるため live_qa）
 		array(
 			'key'          => 'field_hello_live_qa',
 			'label'        => '要約Q&A',
-			'name'         => 'qa',
+			'name'         => 'live_qa',
 			'type'         => 'repeater',
 			'layout'       => 'block',
 			'button_label' => 'Q&Aを追加',

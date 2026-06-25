@@ -49,4 +49,11 @@ add_action( 'wp_enqueue_scripts', function () {
 		array(),
 		$ver
 	);
+	// マガジン表示用スタイル
+	wp_enqueue_style(
+		'hello-magazine',
+		HELLO_THEME_URI . '/assets/css/magazine.css',
+		array( 'hello-child' ),
+		$ver
+	);
 }, 11 );

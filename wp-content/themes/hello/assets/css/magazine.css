@@ -1,0 +1,93 @@
+/* Hello! Magazine 表示用スタイル（確認用ベース。デザインは今後調整） */
+
+.hello-mag { --hello-accent:#0ea5a4; --hello-ink:#1f2937; --hello-line:#e5e7eb; }
+
+/* 言語スイッチャ */
+.hello-langs { display:flex; gap:.4em; flex-wrap:wrap; justify-content:flex-end; margin:0 0 1em; }
+.hello-langs__item { font-size:.8rem; padding:.2em .7em; border:1px solid var(--hello-line); border-radius:999px; text-decoration:none; color:var(--hello-ink); }
+.hello-langs__item.is-current { background:var(--hello-accent); color:#fff; border-color:var(--hello-accent); }
+
+/* タグ */
+.hello-tags { display:flex; gap:.4em; flex-wrap:wrap; margin:.6em 0; }
+.hello-tags__item { font-size:.78rem; color:var(--hello-accent); background:rgba(14,165,164,.08); padding:.15em .6em; border-radius:6px; }
+
+/* 星 */
+.hello-stars { color:#f59e0b; letter-spacing:.05em; }
+
+/* 共通セクション */
+.hello-sec { margin:1.8em 0; }
+.hello-sec__ttl { font-size:1.1rem; font-weight:700; border-left:4px solid var(--hello-accent); padding-left:.5em; margin:0 0 .8em; }
+
+/* メタ情報 */
+.hello-meta { display:flex; gap:1em; flex-wrap:wrap; color:#6b7280; font-size:.85rem; margin:.4em 0 1em; }
+.hello-badge { display:inline-block; font-size:.72rem; font-weight:700; color:#fff; background:var(--hello-accent); padding:.15em .6em; border-radius:6px; }
+.hello-badge.-members { background:#7c3aed; }
+
+/* YouTube LIVE */
+.hello-live__embed { position:relative; aspect-ratio:16/9; margin:0 0 1em; }
+.hello-live__embed iframe { position:absolute; inset:0; width:100%; height:100%; border:0; border-radius:10px; }
+.hello-chapters { list-style:none; margin:0; padding:0; border:1px solid var(--hello-line); border-radius:10px; overflow:hidden; }
+.hello-chapters li { margin:0; }
+.hello-chapters button { width:100%; text-align:left; background:none; border:0; border-bottom:1px solid var(--hello-line); padding:.7em 1em; cursor:pointer; font:inherit; display:flex; gap:.8em; align-items:center; }
+.hello-chapters li:last-child button { border-bottom:0; }
+.hello-chapters button:hover { background:#f9fafb; }
+.hello-chapters .t { color:var(--hello-accent); font-variant-numeric:tabular-nums; min-width:3.5em; }
+.hello-qa { display:grid; gap:.8em; }
+.hello-qa__item { border:1px solid var(--hello-line); border-radius:10px; padding:1em; }
+.hello-qa__q { font-weight:700; margin:0 0 .3em; }
+.hello-qa__a { margin:0; color:#374151; }
+.hello-qa__jump { font-size:.8rem; color:var(--hello-accent); background:none; border:0; padding:0; cursor:pointer; }
+
+/* FAQ アコーディオン */
+.hello-faq__sec { margin:1.2em 0; }
+.hello-faq__sec-ttl { font-weight:700; margin:0 0 .5em; }
+.hello-faq details { border:1px solid var(--hello-line); border-radius:8px; margin:.4em 0; padding:.2em .9em; }
+.hello-faq summary { cursor:pointer; font-weight:600; padding:.6em 0; list-style:none; }
+.hello-faq summary::-webkit-details-marker { display:none; }
+.hello-faq summary::before { content:"＋"; color:var(--hello-accent); margin-right:.5em; font-weight:700; }
+.hello-faq details[open] summary::before { content:"－"; }
+.hello-faq__a { padding:0 0 .8em; color:#374151; }
+
+/* インタビュー プロフィール */
+.hello-profile { background:#f9fafb; border:1px solid var(--hello-line); border-radius:10px; padding:1em 1.2em; margin:0 0 1.2em; }
+.hello-profile dl { display:grid; grid-template-columns:auto 1fr; gap:.3em 1em; margin:0; }
+.hello-profile dt { color:#6b7280; font-size:.85rem; }
+.hello-profile dd { margin:0; }
+
+/* ランキング */
+.hello-rank__cond { display:flex; gap:1.2em; flex-wrap:wrap; background:#f9fafb; border-radius:8px; padding:.8em 1em; margin:0 0 1em; font-size:.88rem; }
+.hello-rank__list { display:grid; gap:1em; }
+.hello-card { display:grid; grid-template-columns:auto 1fr; gap:1em; border:1px solid var(--hello-line); border-radius:12px; padding:1em; }
+.hello-card__rank { font-size:1.4rem; font-weight:800; color:var(--hello-accent); min-width:1.6em; text-align:center; }
+.hello-card__photo img { border-radius:8px; }
+.hello-card__name { font-size:1.1rem; font-weight:700; margin:0 0 .3em; }
+.hello-card__ratings { display:grid; grid-template-columns:repeat(auto-fit,minmax(140px,1fr)); gap:.2em .8em; font-size:.85rem; margin:.4em 0; }
+.hello-card__total { font-size:1.2rem; font-weight:800; color:#f59e0b; }
+.hello-card__attr { display:flex; gap:.6em; flex-wrap:wrap; font-size:.8rem; color:#6b7280; }
+
+/* エージェント */
+.hello-agent__types { display:flex; gap:.5em; flex-wrap:wrap; margin:.4em 0 1em; }
+.hello-agent__type { font-size:.8rem; border:1px solid var(--hello-accent); color:var(--hello-accent); padding:.15em .7em; border-radius:999px; }
+.hello-support { width:100%; border-collapse:collapse; }
+.hello-support th, .hello-support td { text-align:left; padding:.5em .6em; border-bottom:1px solid var(--hello-line); font-size:.9rem; }
+.hello-sys-tags { display:flex; gap:.5em; flex-wrap:wrap; }
+.hello-sys-tags span { font-size:.8rem; background:#ecfeff; color:#0e7490; padding:.15em .6em; border-radius:6px; }
+.hello-info dl { display:grid; grid-template-columns:auto 1fr; gap:.3em 1em; }
+.hello-info dt { color:#6b7280; }
+.hello-cta { display:inline-block; margin-top:1em; background:var(--hello-accent); color:#fff; text-decoration:none; padding:.6em 1.4em; border-radius:999px; font-weight:700; }
+
+/* TOP / アーカイブ */
+.hello-top__tabs { display:flex; gap:.4em; flex-wrap:wrap; margin:1em 0; }
+.hello-top__tab { font-size:.85rem; padding:.4em 1em; border:1px solid var(--hello-line); border-radius:999px; text-decoration:none; color:var(--hello-ink); }
+.hello-top__tab.is-current { background:var(--hello-accent); color:#fff; border-color:var(--hello-accent); }
+.hello-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(260px,1fr)); gap:1.2em; margin:1.2em 0; }
+.hello-acard { border:1px solid var(--hello-line); border-radius:12px; overflow:hidden; text-decoration:none; color:inherit; display:flex; flex-direction:column; }
+.hello-acard__thumb { aspect-ratio:16/9; background:#f3f4f6; object-fit:cover; width:100%; }
+.hello-acard__body { padding:.8em 1em 1em; }
+.hello-acard__type { font-size:.72rem; color:var(--hello-accent); font-weight:700; }
+.hello-acard__ttl { font-size:1rem; font-weight:700; margin:.2em 0; }
+
+@media (max-width:600px){
+  .hello-card { grid-template-columns:1fr; }
+  .hello-card__rank { text-align:left; }
+}

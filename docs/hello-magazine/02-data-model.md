@@ -38,6 +38,25 @@ wp-content/themes/hello/
 
 - URL: `/magazine/live/...` のように `magazine/<種別>` を rewrite slug に設定。
 
+## テンプレート（実装済み）
+
+- `single-hello_{live,interview,faq,ranking,agent}.php` … 各記事種別の詳細
+- `archive-hello_{...}.php` ＋ `template-parts/magazine/archive.php` … 一覧（種別タブ付き）
+- `template-magazine-top.php`（固定ページ「Hello! Magazine」slug=`magazine`）
+  … 全種別を横断表示。**種別タブ**（?mag_type）＋**タグ絞り込み**（?mag_tag, hello_tag）。
+  要件「タグを押すとその種別が表示」を実装。
+- `inc/template-helpers.php` … カード/星評価/言語スイッチャ/タグ/YouTubeユーティリティ。
+- `assets/css/magazine.css` … 表示用スタイル（確認用ベース。デザインは今後調整）。
+- 親テーマSWELLの `l-mainContent` ラッパーに収め、ヘッダー/フッター/サイドバーを継承。
+
+## サンプルデータ投入（開発用）
+
+`wp-content/themes/hello/tools/seed-sample.php`（冪等）。各CPT1件＋TOP固定ページを作成。
+```
+docker compose run --rm wpcli wp eval-file \
+  /var/www/html/wp-content/themes/hello/tools/seed-sample.php
+```
+
 ## タクソノミー
 
 | slug | 用途 | 付与先 |
