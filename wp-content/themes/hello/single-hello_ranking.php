@@ -44,10 +44,12 @@ while ( have_posts() ) :
 							<div class="hello-card__photo"><img src="<?php echo esc_url( $photo['sizes']['medium'] ); ?>" alt="<?php echo esc_attr( $e['school_name'] ?? '' ); ?>" width="240"></div>
 						<?php endif; ?>
 						<p class="hello-card__name">
+							<?php echo esc_html( $e['school_name'] ?? '' ); ?>
 							<?php if ( ! empty( $e['school_url'] ) ) : ?>
-								<a href="<?php echo esc_url( $e['school_url'] ); ?>"><?php echo esc_html( $e['school_name'] ?? '' ); ?></a>
-							<?php else : ?>
-								<?php echo esc_html( $e['school_name'] ?? '' ); ?>
+								<a class="hello-extlink" href="<?php echo esc_url( $e['school_url'] ); ?>" target="_blank" rel="noopener nofollow"
+									title="公式サイトを開く" aria-label="<?php echo esc_attr( ( $e['school_name'] ?? '' ) . ' の公式サイトを開く（外部リンク）' ); ?>">
+									<span aria-hidden="true">↗</span>
+								</a>
 							<?php endif; ?>
 						</p>
 						<div class="hello-card__attr">

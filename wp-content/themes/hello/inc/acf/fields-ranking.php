@@ -35,7 +35,7 @@ acf_add_local_field_group( array(
 			'sub_fields'   => array(
 				array( 'key' => 'field_hello_rank_e_rank', 'label' => '順位', 'name' => 'rank', 'type' => 'number' ),
 				array( 'key' => 'field_hello_rank_e_school', 'label' => '学校名', 'name' => 'school_name', 'type' => 'text' ),
-				array( 'key' => 'field_hello_rank_e_url', 'label' => '学校ページURL（任意）', 'name' => 'school_url', 'type' => 'url' ),
+				array( 'key' => 'field_hello_rank_e_url', 'label' => '公式サイトURL（任意・外部リンク↗を表示）', 'name' => 'school_url', 'type' => 'url' ),
 				array( 'key' => 'field_hello_rank_e_photo', 'label' => '写真', 'name' => 'photo', 'type' => 'image', 'return_format' => 'array', 'preview_size' => 'medium' ),
 				array( 'key' => 'field_hello_rank_e_area', 'label' => 'エリア', 'name' => 'area', 'type' => 'text' ),
 				array( 'key' => 'field_hello_rank_e_curr', 'label' => 'カリキュラム', 'name' => 'curriculum', 'type' => 'text' ),

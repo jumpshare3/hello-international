@@ -61,6 +61,8 @@
 .hello-card__rank { font-size:1.4rem; font-weight:800; color:var(--hello-accent); min-width:1.6em; text-align:center; }
 .hello-card__photo img { border-radius:8px; }
 .hello-card__name { font-size:1.1rem; font-weight:700; margin:0 0 .3em; }
+.hello-extlink { display:inline-flex; align-items:center; justify-content:center; width:1.5em; height:1.5em; margin-left:.3em; vertical-align:middle; border:1px solid var(--hello-line); border-radius:6px; color:var(--hello-accent); text-decoration:none; font-size:.85em; line-height:1; }
+.hello-extlink:hover { background:var(--hello-accent); color:#fff; border-color:var(--hello-accent); }
 .hello-card__ratings { display:grid; grid-template-columns:repeat(auto-fit,minmax(140px,1fr)); gap:.2em .8em; font-size:.85rem; margin:.4em 0; }
 .hello-card__total { font-size:1.2rem; font-weight:800; color:#f59e0b; }
 .hello-card__attr { display:flex; gap:.6em; flex-wrap:wrap; font-size:.8rem; color:#6b7280; }

@@ -127,7 +127,7 @@ update_field( 'cond_fee_basis', '初年度目安（入学金含む）', $id );
 update_field( 'cond_grade', 'Nursery', $id );
 update_field( 'intro', '学年別の初年度目安費用をもとに整理しました。学年や為替により変動する場合があります。', $id );
 update_field( 'entries', array(
-	array( 'rank' => 1, 'school_name' => 'オーストラリア・インターナショナルスクール', 'area' => 'KL中心部', 'curriculum' => 'イギリス式', 'price' => 'RM20,000以下',
+	array( 'rank' => 1, 'school_name' => 'オーストラリア・インターナショナルスクール', 'school_url' => 'https://example.com/', 'area' => 'KL中心部', 'curriculum' => 'イギリス式', 'price' => 'RM20,000以下',
 		'rating_learning' => 4.4, 'rating_school_life' => 4.3, 'rating_parent_support' => 4.6, 'rating_fee_satisfaction' => 3.9, 'rating_overall' => 3.26, 'features' => 'STEM教育・IB対応' ),
 	array( 'rank' => 2, 'school_name' => 'ABCインターナショナルスクール', 'area' => 'KL中心部', 'curriculum' => 'イギリス式', 'price' => 'RM35,000〜',
 		'rating_learning' => 4.2, 'rating_school_life' => 4.1, 'rating_parent_support' => 4.5, 'rating_fee_satisfaction' => 3.8, 'rating_overall' => 3.18, 'features' => 'IB・STEM教育' ),
@@ -237,7 +237,7 @@ for ( $i = 1; $i <= 20; $i++ ) {
 	for ( $r = 1; $r <= 3; $r++ ) {
 		$sc = $schools[ ( $i + $r ) % 20 ];
 		$entries[] = array(
-			'rank' => $r, 'school_name' => "{$sc}インターナショナルスクール",
+			'rank' => $r, 'school_name' => "{$sc}インターナショナルスクール", 'school_url' => 'https://example.com/',
 			'area' => $regions[ ( $i + $r ) % count( $regions ) ], 'curriculum' => $curricula[ ( $i + $r ) % count( $curricula ) ],
 			'price' => $prices[ ( $i + $r ) % count( $prices ) ],
 			'rating_learning' => 4.2, 'rating_school_life' => 4.1, 'rating_parent_support' => 4.4, 'rating_fee_satisfaction' => 3.8,
