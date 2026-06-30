@@ -344,6 +344,36 @@ if ( $int && function_exists( 'update_field' ) ) {
 	update_field( 'recommend_articles', $demo, $int[0] );
 }
 
+// ---- サンプルにアイキャッチを設定（種別ごとの既定画像を添付。実画像があれば維持）----
+if ( ! function_exists( 'hello_seed_eyecatch_attachment' ) ) {
+	function hello_seed_eyecatch_attachment( $slug ) {
+		$title = 'eyecatch-' . $slug;
+		$found = get_posts( array( 'post_type' => 'attachment', 'title' => $title, 'posts_per_page' => 1, 'fields' => 'ids', 'post_status' => 'inherit' ) );
+		if ( $found ) { return $found[0]; }
+		$src = get_stylesheet_directory() . '/assets/img/eyecatch-' . $slug . '.png';
+		if ( ! file_exists( $src ) ) { $src = get_stylesheet_directory() . '/assets/img/eyecatch-default.png'; }
+		if ( ! file_exists( $src ) ) { return 0; }
+		$up = wp_upload_dir();
+		if ( ! empty( $up['error'] ) ) { return 0; }
+		$dest = trailingslashit( $up['path'] ) . $title . '.png';
+		if ( ! file_exists( $dest ) ) { @copy( $src, $dest ); }
+		if ( ! file_exists( $dest ) ) { return 0; }
+		$ft    = wp_check_filetype( $dest );
+		$attid = wp_insert_attachment( array( 'post_title' => $title, 'post_mime_type' => $ft['type'], 'post_status' => 'inherit' ), $dest );
+		if ( is_wp_error( $attid ) || ! $attid ) { return 0; }
+		require_once ABSPATH . 'wp-admin/includes/image.php';
+		wp_update_attachment_metadata( $attid, wp_generate_attachment_metadata( $attid, $dest ) );
+		return $attid;
+	}
+}
+foreach ( array( 'hello_article' => 'article', 'hello_live' => 'live', 'hello_interview' => 'interview', 'hello_ranking' => 'ranking', 'hello_agent' => 'agent' ) as $pt => $slug ) {
+	$att = hello_seed_eyecatch_attachment( $slug );
+	if ( ! $att ) { continue; }
+	foreach ( get_posts( array( 'post_type' => $pt, 'post_status' => 'publish', 'posts_per_page' => -1, 'fields' => 'ids' ) ) as $pid ) {
+		if ( ! has_post_thumbnail( $pid ) ) { set_post_thumbnail( $pid, $att ); }
+	}
+}
+
 // ---- 投稿日をランダム化（TOPが特定種別に偏らないよう、種別を日付でシャッフル）----
 $all = get_posts( array(
 	'post_type'      => array( 'hello_article', 'hello_live', 'hello_interview', 'hello_faq', 'hello_ranking', 'hello_agent' ),
